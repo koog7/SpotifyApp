@@ -1,14 +1,18 @@
 import express from 'express';
 import mongoose from "mongoose";
+import cors from 'cors';
 import SpotifyRouter from "./routes/artistsRoutes";
 import AlbumsRouter from "./routes/albumsRoutes";
 import TracksRouter from "./routes/tracksRouter";
 import authUserRouter from "./routes/authUserRouter";
 
+
 const app = express();
 const port = 8000;
 
 app.use(express.json())
+app.use(cors())
+app.use(express.static('public'))
 app.use('/', SpotifyRouter);
 app.use('/', AlbumsRouter);
 app.use('/', TracksRouter);
