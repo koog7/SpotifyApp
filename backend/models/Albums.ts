@@ -13,7 +13,7 @@ const AlbumsSchema = new Schema({
         required: true,
     },
     dataRelease: {
-        type: String,
+        type: Number,
         required: true,
     },
     photo: String,
