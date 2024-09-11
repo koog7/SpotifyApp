@@ -3,3 +3,70 @@
   margin: 0 auto;
 }
 
+.artist-card {
+  background-color: #2b2d2b;
+  padding: 20px;
+  border-radius: 7px;
+  max-height: 400px;
+  transition: background-color 0.3s ease;
+}
+
+.artist-card:hover {
+  background-color: #383737;
+}
+
+.artist-image {
+  border-radius: 50%;
+}
+.album-image{
+  border-radius: 7%;
+}
+
+.artist-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.artist-description {
+  font-size: 14px;
+  margin: 0;
+  color: grey;
+}
+
+
+.tracklist-container {
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tracklist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tracklist-table thead {
+  color: white;
+}
+
+.tracklist-table th, .tracklist-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.tracklist-table th {
+  font-size: 18px;
+}
+
+.tracklist-table td {
+  font-size: 16px;
+  color: white;
+}
+
+.tracklist-table tbody tr:last-child td {
+  border-bottom: none;
+}
