@@ -2,6 +2,7 @@ import express from "express";
 import {imagesUpload} from "../multer";
 import Album from "../models/Albums";
 import Artist from "../models/Artists";
+import Track from "../models/Tracks";
 
 
 const albumsRouter = express.Router();
@@ -29,8 +30,11 @@ albumsRouter.get( '/albums', async (req, res )=>{
 
     if(artist){
         try {
-            const albums = await Album.find({artistId: artist});
 
+            console.log(artist)
+
+            const albums = await Album.find({artistId: artist});
+            console.log(albums)
             const albumInfo = albums.map(album => ({
                 _id: album._id,
                 title: album.title,
@@ -51,11 +55,8 @@ albumsRouter.get( '/albums', async (req, res )=>{
             dataRelease: album.dataRelease,
             photo: album.photo,
         }));
-
         res.send(albumInfo)
     }
-
-
 });
 
 albumsRouter.get( '/albums/:id', async (req, res )=>{

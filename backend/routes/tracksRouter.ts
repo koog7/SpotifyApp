@@ -2,6 +2,7 @@ import express from "express";
 import Track from "../models/Tracks";
 import User from "../models/Users";
 import TrackHistory from "../models/TrackHistory";
+import Album from "../models/Albums";
 
 const tracksRouter = express.Router();
 tracksRouter.use(express.json());
@@ -27,12 +28,23 @@ tracksRouter.get( '/tracks', async (req, res )=>{
     if(album){
         try {
             const tracks = await Track.find({albumId: album});
+            const getInfoAlbum = await Album.findById(album)
 
-            const trackInfo = tracks.map(album => ({
-                _id: album._id,
-                title: album.title,
-                albumId: album.albumId,
-                duration: album.duration,
+            if (!getInfoAlbum) {
+                return res.status(400).send({error: 'Album not found'});
+            }
+
+
+            const trackInfo = tracks.map(track => ({
+                _id: track._id,
+                title: track.title,
+                albumId: track.albumId,
+                duration: track.duration,
+                album: {
+                    title: getInfoAlbum.title,
+                    dataRelease: getInfoAlbum.dataRelease,
+                    photo: getInfoAlbum.photo,
+                }
             }));
 
             res.send(trackInfo)
