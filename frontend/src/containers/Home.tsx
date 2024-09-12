@@ -18,7 +18,7 @@ const Home = () => {
         <div style={{display:'flex', gap: '20px', marginTop:'50px'}}>
             {allArtists.map((artist) =>  ( artist? (
                     <div key={artist._id}>
-                        <ArtistCard name={artist.name} photo={artist.photo}/>
+                        <ArtistCard name={artist.name} photo={artist.photo} _id={artist._id}/>
                     </div>
                 ) : <p>Loading</p>
             ))}
