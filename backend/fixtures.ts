@@ -23,7 +23,7 @@ const run = async () => {
         },
         {
             name: 'The Weeknd',
-            photo: 'artistWeeknd.jpg',
+            photo: 'artistWeeknd.jpeg',
             info: 'Canadian singer, songwriter, and record producer',
         }
     ]);

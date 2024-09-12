@@ -1,12 +1,13 @@
 import ArtistCard from "../components/ArtistCard.tsx";
-import {AppDispatch} from "../app/store.ts";
-import {useDispatch} from "react-redux";
+import {AppDispatch, RootState} from "../app/store.ts";
+import {useDispatch, useSelector} from "react-redux";
 import {getArtists} from "./Thunk/FetchSlice.ts";
 import {useEffect} from "react";
 
 const Home = () => {
 
     const dispatch = useDispatch<AppDispatch>();
+    const allArtists = useSelector((state: RootState) => state.Artist.allArtists);
 
     useEffect(() => {
         dispatch(getArtists())
@@ -14,8 +15,13 @@ const Home = () => {
 
 
     return (
-        <div>
-            <ArtistCard/>
+        <div style={{display:'flex', gap: '20px', marginTop:'50px'}}>
+            {allArtists.map((artist) =>  ( artist? (
+                    <div key={artist._id}>
+                        <ArtistCard name={artist.name} photo={artist.photo}/>
+                    </div>
+                ) : <p>Loading</p>
+            ))}
         </div>
     );
 };

@@ -51,7 +51,6 @@ export const ArtistsSlice = createSlice({
         builder.addCase(getArtists.fulfilled, (state: ArtistState, action) => {
             state.allArtists = action.payload;
             state.loader = false;
-            console.log(state.allArtists)
         });
         builder.addCase(getArtists.rejected, (state: ArtistState) => {
             state.loader = false;
