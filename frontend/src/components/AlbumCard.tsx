@@ -12,7 +12,7 @@ interface Props{
 const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo}) => {
     return (
         <div>
-            <NavLink className="nav-link" to={`/album/${123}/${123}`} style={{textDecoration: 'none'}}>
+            <NavLink className="nav-link" to={`/tracks/${_id}`} style={{textDecoration: 'none'}}>
                 <div className="artist-card">
                     <img className="album-image" width="160px" src={`http://localhost:8000/images/${photo}`}
                          alt="Artist image"/>
