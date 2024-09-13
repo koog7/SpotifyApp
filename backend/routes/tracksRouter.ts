@@ -3,6 +3,7 @@ import Track from "../models/Tracks";
 import User from "../models/Users";
 import TrackHistory from "../models/TrackHistory";
 import Album from "../models/Albums";
+import Artist from "../models/Artists";
 
 const tracksRouter = express.Router();
 tracksRouter.use(express.json());
@@ -30,20 +31,30 @@ tracksRouter.get( '/tracks', async (req, res )=>{
             const tracks = await Track.find({albumId: album});
             const getInfoAlbum = await Album.findById(album)
 
+
             if (!getInfoAlbum) {
                 return res.status(400).send({error: 'Album not found'});
             }
 
+            const getInfoArtist = await Artist.findById(getInfoAlbum.artistId);
+
+            if (!getInfoArtist) {
+                return res.status(400).send({error: 'Problem with fetching user'});
+            }
 
             const trackInfo = tracks.map(track => ({
                 _id: track._id,
                 title: track.title,
                 albumId: track.albumId,
                 duration: track.duration,
+                numberTrack: track.numberTrack,
                 album: {
                     title: getInfoAlbum.title,
                     dataRelease: getInfoAlbum.dataRelease,
                     photo: getInfoAlbum.photo,
+                },
+                user:{
+                    name: getInfoArtist.name
                 }
             }));
 
