@@ -16,16 +16,32 @@ interface Albums{
     photo: string;
     title: string;
 }
+interface Tracks{
+    _id: string;
+    title: string;
+    albumId: string;
+    duration: string;
+    album: {
+        title: string;
+        "dataRelease": number,
+        photo: string;
+    };
+    user:{
+        name: string;
+    }
+}
 
 interface ArtistState {
     allArtists: Artists[];
-    certainAlbums: Albums[]
+    certainAlbums: Albums[];
+    allTracks: Tracks[]
     loader: boolean;
     error: boolean;
 }
 const initialState: ArtistState = {
     allArtists: [],
     certainAlbums: [],
+    allTracks: [],
     loader: false,
     error: false,
 };
@@ -61,12 +77,22 @@ export const getAlbums = createAsyncThunk<Albums[], string , { state: RootState 
     }
 });
 
+
+export const getTracks = createAsyncThunk<Tracks[], string , { state: RootState }>('artist/getTracks', async (id: string) => {
+    try{
+        const response = await axiosAPI.get(`/tracks?album=${id}`);
+        return response.data;
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
 export const ArtistsSlice = createSlice({
     name:'Artist',
     initialState,
     reducers:{
-        deleteComment: (state, action: PayloadAction<string>) => {
-            state.allComments = state.allComments.filter(comment => comment.id !== action.payload);
+        err: (state) => {
+            state.error = false;
         },
     },
     extraReducers: (builder) => {
@@ -93,9 +119,21 @@ export const ArtistsSlice = createSlice({
         builder.addCase(getAlbums.rejected, (state: ArtistState) => {
             state.loader = false;
             state.error = true;
+        })
+        builder.addCase(getTracks.pending, (state: ArtistState) => {
+            state.loader = true;
+            state.error = false;
+        });
+        builder.addCase(getTracks.fulfilled, (state: ArtistState, action) => {
+            state.allTracks = action.payload;
+            state.loader = false;
+        });
+        builder.addCase(getTracks.rejected, (state: ArtistState) => {
+            state.loader = false;
+            state.error = true;
         });
     },
 })
 
 export const ArtistsReducer = ArtistsSlice.reducer;
-export const  {deleteComment}  = ArtistsSlice.actions;
+export const  {err}  = ArtistsSlice.actions;

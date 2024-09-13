@@ -15,8 +15,6 @@ const ListAlbums = () => {
 
     useEffect(() => {
         dispatch(getAlbums(id))
-
-        console.log(certainAlbums)
     }, [dispatch]);
 
 
