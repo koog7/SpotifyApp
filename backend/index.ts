@@ -5,6 +5,7 @@ import SpotifyRouter from "./routes/artistsRoutes";
 import AlbumsRouter from "./routes/albumsRoutes";
 import TracksRouter from "./routes/tracksRouter";
 import authUserRouter from "./routes/authUserRouter";
+import tracksHistoryRouter from "./routes/trackHistory";
 
 
 const app = express();
@@ -17,7 +18,7 @@ app.use('/', SpotifyRouter);
 app.use('/', AlbumsRouter);
 app.use('/', TracksRouter);
 app.use('/users', authUserRouter);
-
+app.use('/track_history', tracksHistoryRouter);
 const run = async () => {
 
     try{
