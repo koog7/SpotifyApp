@@ -47,7 +47,7 @@
 
 
 .tracklist-container {
-  margin: 20px auto;
+  margin: 20px;
   max-width: 600px;
   border-radius: 10px;
   overflow: hidden;
@@ -80,3 +80,25 @@
 .tracklist-table tbody tr:last-child td {
   border-bottom: none;
 }
+
+
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  text-align: center;
+}
+
+.not-found-header {
+  font-size: 6rem;
+  margin: 0;
+  color: white;
+}
+
+.not-found-text {
+  font-size: 1.5rem;
+  color: white;
+}
+
