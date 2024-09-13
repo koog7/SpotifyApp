@@ -19,7 +19,7 @@ const TrackList = () => {
 
     return (
         <div>
-            <div style={{display:'flex', marginTop:'50px'}}>
+            <div style={{display:'flex', marginTop:'50px', marginLeft:'25px'}}>
                 <div>
                     <img className="album-image" width="160px" src={`http://localhost:8000/images/${allTracks[0]? allTracks[0].album.photo: 'noimg.jpg'}`}
                          alt="Artist image"/>
@@ -27,7 +27,7 @@ const TrackList = () => {
                 <div style={{marginLeft:'20px', marginTop:'auto', marginBottom:'10px'}}>
                     <p style={{margin:'0'}}>Альбом</p>
                     <h3 style={{margin:'0'}}>{allTracks[0]? allTracks[0].album.title : 'Title'}</h3>
-                    <p style={{margin:'0'}}>{allTracks[0]? allTracks[0].user.name : 'Nickname'} · {allTracks[0]? allTracks[0].album.dataRelease : 'Year'} · 12 Трек</p>
+                    <p style={{margin:'0'}}>{allTracks[0]? allTracks[0].user.name : 'Nickname'} · {allTracks[0]? allTracks[0].album.dataRelease : 'Year'}</p>
                 </div>
             </div>
             <div>

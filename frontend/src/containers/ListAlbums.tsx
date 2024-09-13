@@ -14,13 +14,12 @@ const ListAlbums = () => {
 
     useEffect(() => {
         dispatch(getAlbums(id))
-        console.log(certainAlbums)
     }, [dispatch]);
 
 
     return (
 
-        <div style={{display: 'flex', gap: '20px', marginTop: '50px'}}>
+        <div style={{display: 'flex', gap: '20px', marginTop: '50px' ,marginLeft:'110px'}}>
             {certainAlbums.map((artist) => (artist ? (
                     <div key={artist._id}>
                         <AlbumCard title={artist.title} photo={artist.photo} _id={artist._id} dataRelease={artist.dataRelease} trackCount={artist.trackCount}/>

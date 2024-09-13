@@ -65,7 +65,6 @@ export const getArtists = createAsyncThunk<Artists[], { state: RootState }>('art
 export const getAlbums = createAsyncThunk<Albums[], string , { state: RootState }>('artist/getAlbums', async (id: string) => {
     try{
         const response = await axiosAPI.get(`/albums?artist=${id}`);
-        console.log(response.status , response.data)
         return response.data.map(item => ({
             _id: item._id,
             dataRelease: item.dataRelease,
