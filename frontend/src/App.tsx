@@ -3,9 +3,11 @@ import {NavLink, Route, Routes} from "react-router-dom";
 import Home from "./containers/Home.tsx";
 import ListAlbums from "./containers/ListAlbums.tsx";
 import TrackList from "./containers/TrackList.tsx";
+import {useSelector} from "react-redux";
+import {RootState} from "./app/store.ts";
 
 const App = () => {
-
+    const loader = useSelector((state: RootState) => state.Artist.loader);
     return(
         <>
             <div>
@@ -16,8 +18,10 @@ const App = () => {
                 </div>
                 <hr/>
             </div>
-
-            <div style={{marginLeft:'170px'}}>
+            <div id="loader-container" style={{display: loader ? 'block' : 'none'}}>
+                <div className="loader"></div>
+            </div>
+            <div style={{marginLeft: '170px'}}>
                 <Routes>
                     <Route path="/" element={(
                         <Home/>
