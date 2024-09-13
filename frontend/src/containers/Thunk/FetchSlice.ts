@@ -15,6 +15,7 @@ interface Albums{
     dataRelease: number;
     photo: string;
     title: string;
+    trackCount: number;
 }
 interface Tracks{
     _id: string;
@@ -67,10 +68,10 @@ export const getAlbums = createAsyncThunk<Albums[], string , { state: RootState 
         console.log(response.status , response.data)
         return response.data.map(item => ({
             _id: item._id,
-            artistId: item.artistId,
             dataRelease: item.dataRelease,
             photo: item.photo,
             title: item.title,
+            trackCount: item.trackCount
         }));
     }catch (error) {
         console.error('Error:', error);

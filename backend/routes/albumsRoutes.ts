@@ -30,17 +30,20 @@ albumsRouter.get( '/albums', async (req, res )=>{
 
     if(artist){
         try {
-
-            console.log(artist)
-
             const albums = await Album.find({artistId: artist});
-            console.log(albums)
-            const albumInfo = albums.map(album => ({
-                _id: album._id,
-                title: album.title,
-                dataRelease: album.dataRelease,
-                photo: album.photo,
-            }));
+
+            const albumInfo = await Promise.all(
+                albums.map(async (album) => {
+                    const trackCount = await Track.countDocuments({ albumId: album._id });
+                    return {
+                        _id: album._id,
+                        title: album.title,
+                        dataRelease: album.dataRelease,
+                        photo: album.photo,
+                        trackCount: trackCount
+                    };
+                })
+            );
 
             res.send(albumInfo)
         }catch (e) {
@@ -49,12 +52,18 @@ albumsRouter.get( '/albums', async (req, res )=>{
     }else {
         const albums = await Album.find();
 
-        const albumInfo = albums.map(album => ({
-            _id: album._id,
-            title: album.title,
-            dataRelease: album.dataRelease,
-            photo: album.photo,
-        }));
+        const albumInfo = await Promise.all(
+            albums.map(async (album) => {
+                const trackCount = await Track.countDocuments({ albumId: album._id });
+                return {
+                    _id: album._id,
+                    title: album.title,
+                    dataRelease: album.dataRelease,
+                    photo: album.photo,
+                    trackCount: trackCount
+                };
+            })
+        );
         res.send(albumInfo)
     }
 });

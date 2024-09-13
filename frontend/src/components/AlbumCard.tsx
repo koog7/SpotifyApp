@@ -7,9 +7,10 @@ interface Props{
     title: string,
     dataRelease: number,
     photo: string,
+    trackCount: number,
 }
 
-const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo}) => {
+const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo , trackCount}) => {
     return (
         <div>
             <NavLink className="nav-link" to={`/tracks/${_id}`} style={{textDecoration: 'none'}}>
@@ -17,7 +18,7 @@ const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo}) => {
                     <img className="album-image" width="160px" src={`http://localhost:8000/images/${photo}`}
                          alt="Artist image"/>
                     <p className="album-name">{title}</p>
-                    <p className="artist-description"><span style={{marginRight: '5px', color: 'white'}}>{dataRelease} ·</span><span style={{margin:0, color:'white', fontSize:'14px'}}>21 Трек ·</span> Альбом
+                    <p className="artist-description"><span style={{marginRight: '5px', color: 'white'}}>{dataRelease} ·</span><span style={{margin:0, color:'white', fontSize:'14px'}}>{trackCount} Трек ·</span> Альбом
                     </p>
                 </div>
             </NavLink>
