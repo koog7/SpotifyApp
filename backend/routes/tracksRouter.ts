@@ -31,7 +31,6 @@ tracksRouter.get( '/tracks', async (req, res )=>{
             const tracks = await Track.find({albumId: album});
             const getInfoAlbum = await Album.findById(album)
 
-            console.log(getInfoAlbum)
             if (!getInfoAlbum) {
                 return res.status(400).send({error: 'Album not found'});
             }

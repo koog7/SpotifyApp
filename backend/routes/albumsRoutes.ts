@@ -30,7 +30,7 @@ albumsRouter.get( '/albums', async (req, res )=>{
 
     if(artist){
         try {
-            const albums = await Album.find({artistId: artist});
+            const albums = await Album.find({artistId: artist}).sort({ dataRelease: -1 });
 
             const albumInfo = await Promise.all(
                 albums.map(async (album) => {
