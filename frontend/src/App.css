@@ -131,11 +131,10 @@
 }
 
 
-
 .signin-container {
   display: flex;
-  height: 50vh;
-  margin-left: 110px;
+  min-height: 350px;
+  margin-left: 125px;
   margin-top: 50px;
 }
 
@@ -175,10 +174,6 @@
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-  border-color: #007bff;
 }
 
 

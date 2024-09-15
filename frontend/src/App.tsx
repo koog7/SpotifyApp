@@ -5,11 +5,11 @@ import ListAlbums from "./containers/ListAlbums.tsx";
 import TrackList from "./containers/TrackList.tsx";
 import {useSelector} from "react-redux";
 import {RootState} from "./app/store.ts";
-import SignUp from "./containers/AuthPages/SignUp.tsx";
 import SignIn from "./containers/AuthPages/SignIn.tsx";
 
 const App = () => {
     const loader = useSelector((state: RootState) => state.Artist.loader);
+    const userData = useSelector((state: RootState) => state.Artist.user);
     return(
         <>
             <div>
@@ -18,8 +18,19 @@ const App = () => {
                         <NavLink className="nav-link" to="/" style={{textDecoration: 'none', color: 'white'}}>Lite <span style={{color: 'limegreen'}}>Spotify</span></NavLink>
                     </h2>
                     <div style={{display: 'flex', alignItems: 'center', marginLeft: 'auto', gap:'20px', paddingRight:'30px', fontSize:'20px'}}>
-                        <NavLink to={'/registration'} style={{color: '#b3b3b3', textDecoration:'none'}}>Sing In</NavLink>
-                        <NavLink to={'/login'} style={{color: '#b3b3b3', textDecoration:'none'}}>Sing Up</NavLink>
+                        {userData && userData.username ? (
+                            <p>{userData.username}</p>
+                        ) : (
+                            <div>
+                                <NavLink to="/login" style={{ color: '#b3b3b3', textDecoration: 'none', marginRight: '10px' }}>
+                                    Log In
+                                </NavLink>
+                                <NavLink to="/registration" style={{ color: '#b3b3b3', textDecoration: 'none' }}>
+                                    Sign Up
+                                </NavLink>
+                            </div>
+                        )}
+
                     </div>
                 </div>
                 <hr/>

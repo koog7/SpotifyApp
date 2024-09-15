@@ -2,6 +2,15 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axiosAPI from "../../axios/AxiosAPI.ts";
 import {RootState} from "../../app/store.ts";
 
+export interface User{
+    _id: string,
+    username: string,
+    token: string,
+}
+interface LoginData {
+    username: string;
+    password: string;
+}
 interface Artists{
     _id: string;
     name: string;
@@ -35,7 +44,8 @@ interface Tracks{
 interface ArtistState {
     allArtists: Artists[];
     certainAlbums: Albums[];
-    allTracks: Tracks[]
+    allTracks: Tracks[];
+    user: User | null;
     loader: boolean;
     error: boolean;
 }
@@ -43,6 +53,7 @@ const initialState: ArtistState = {
     allArtists: [],
     certainAlbums: [],
     allTracks: [],
+    user: null,
     loader: false,
     error: false,
 };
@@ -81,6 +92,15 @@ export const getAlbums = createAsyncThunk<Albums[], string , { state: RootState 
 export const getTracks = createAsyncThunk<Tracks[], string , { state: RootState }>('artist/getTracks', async (id: string) => {
     try{
         const response = await axiosAPI.get(`/tracks?album=${id}`);
+        return response.data;
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const loginUser = createAsyncThunk<User , LoginData , { state: RootState }>('users/singIn', async (loginData: { username: string; password: string }) => {
+    try{
+        const response = await axiosAPI.post(`/users` , loginData);
         return response.data;
     }catch (error) {
         console.error('Error:', error);
@@ -129,6 +149,19 @@ export const ArtistsSlice = createSlice({
             state.loader = false;
         });
         builder.addCase(getTracks.rejected, (state: ArtistState) => {
+            state.loader = false;
+            state.error = true;
+        })
+        builder.addCase(loginUser.pending, (state: ArtistState) => {
+            state.loader = true;
+            state.error = false;
+        });
+        builder.addCase(loginUser.fulfilled, (state: ArtistState, action) => {
+            state.user = action.payload;
+            state.loader = false;
+            console.log(state.user)
+        });
+        builder.addCase(loginUser.rejected, (state: ArtistState) => {
             state.loader = false;
             state.error = true;
         });
