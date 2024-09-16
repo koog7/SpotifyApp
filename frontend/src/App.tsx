@@ -6,6 +6,7 @@ import TrackList from "./containers/TrackList.tsx";
 import {useSelector} from "react-redux";
 import {RootState} from "./app/store.ts";
 import SignIn from "./containers/AuthPages/SignIn.tsx";
+import SignUp from "./containers/AuthPages/SignUp.tsx";
 
 const App = () => {
     const loader = useSelector((state: RootState) => state.Artist.loader);
@@ -45,6 +46,9 @@ const App = () => {
                     )}/>
                     <Route path="/registration" element={(
                         <SignIn />
+                    )}/>
+                    <Route path="/login" element={(
+                        <SignUp />
                     )}/>
                     <Route path="/album/:id" element={(
                         <ListAlbums/>

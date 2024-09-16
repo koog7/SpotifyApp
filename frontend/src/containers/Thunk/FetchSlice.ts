@@ -107,6 +107,15 @@ export const loginUser = createAsyncThunk<User , LoginData , { state: RootState 
     }
 });
 
+export const authorizationUser = createAsyncThunk<User , LoginData , { state: RootState }>('users/singUp', async (loginData: { username: string; password: string }) => {
+    try{
+        const response = await axiosAPI.post(`/users/sessions` , loginData);
+        return response.data;
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
 export const ArtistsSlice = createSlice({
     name:'Artist',
     initialState,
@@ -159,9 +168,21 @@ export const ArtistsSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state: ArtistState, action) => {
             state.user = action.payload;
             state.loader = false;
-            console.log(state.user)
         });
         builder.addCase(loginUser.rejected, (state: ArtistState) => {
+            state.loader = false;
+            state.error = true;
+        })
+        builder.addCase(authorizationUser.pending, (state: ArtistState) => {
+            state.loader = true;
+            state.error = false;
+        });
+        builder.addCase(authorizationUser.fulfilled, (state: ArtistState, action) => {
+            state.user = action.payload;
+            state.loader = false;
+            console.log(state.user)
+        });
+        builder.addCase(authorizationUser.rejected, (state: ArtistState) => {
             state.loader = false;
             state.error = true;
         });
