@@ -1,6 +1,10 @@
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
+}
+
+*{
+  font-family: "Manrope", sans-serif;
 }
 
 .artist-card {
@@ -134,8 +138,9 @@
 .signin-container {
   display: flex;
   min-height: 350px;
-  margin-left: 125px;
-  margin-top: 50px;
+  margin-left: 50px;
+  margin-top: 140px;
+  width: 419px;
 }
 
 .signin-form {
@@ -191,4 +196,75 @@
 
 .signin-button:hover {
   background-color: #1ba64d;
+}
+
+
+.sidebar {
+  width: 230px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #212121;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  margin: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link span {
+  color: limegreen;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 30px;
+  font-size: 20px;
+}
+
+.welcome-message {
+  color: #b3b3b3;
+  font-size: 18px;
+}
+
+.auth-links {
+  margin-top: 20px;
+}
+
+.auth-links a {
+  color: #b3b3b3;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.auth-links a:last-child {
+  margin-right: 0;
+}
+
+.loader-container {
+  display: none;
+}
+
+.loader-container.active {
+  display: block;
+}
+
+.trackH-btn{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.logout:hover{
+  text-decoration: underline;
 }
