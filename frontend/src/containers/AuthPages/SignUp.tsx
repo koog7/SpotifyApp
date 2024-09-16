@@ -20,7 +20,6 @@ const SignUp = () => {
 
     const submitData = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(login)
         await dispatch(authorizationUser(login))
         await navigate('/')
     };

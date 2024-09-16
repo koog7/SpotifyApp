@@ -6,6 +6,7 @@ import TrackList from "./containers/TrackList.tsx";
 import SignIn from "./containers/AuthPages/SignIn.tsx";
 import SignUp from "./containers/AuthPages/SignUp.tsx";
 import SideBar from "./components/SideBar.tsx";
+import TrackHistory from "./containers/TrackHistory.tsx";
 
 const App = () => {
 
@@ -25,6 +26,9 @@ const App = () => {
                         )}/>
                         <Route path="/login" element={(
                             <SignUp/>
+                        )}/>
+                        <Route path="/track_history" element={(
+                            <TrackHistory/>
                         )}/>
                         <Route path="/album/:id" element={(
                             <ListAlbums/>

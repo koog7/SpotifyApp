@@ -16,6 +16,9 @@ const TrackList = () => {
         console.log()
     }, [dispatch, id]);
 
+    const getIdTrack = (id) => {
+        console.log(id)
+    }
 
     return (
         <div>
@@ -35,18 +38,26 @@ const TrackList = () => {
                     <table className="tracklist-table">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>#</th>
                             <th>Название трека</th>
                             <th>Длительность</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {allTracks.map(track => (
+                        {allTracks.map(track => track?  (
                             <tr key={track._id}>
+                                <td>
+                                    <button onClick={() => getIdTrack(track._id)}>Play</button>
+                                </td>
                                 <td>{track.numberTrack}</td>
                                 <td>{track.title}</td>
                                 <td>{track.duration}</td>
                             </tr>
+                        ): (
+                            <div>
+                                <p>There are no tracks</p>
+                            </div>
                         ))}
                         </tbody>
                     </table>

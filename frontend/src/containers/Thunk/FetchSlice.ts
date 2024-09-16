@@ -180,7 +180,6 @@ export const ArtistsSlice = createSlice({
         builder.addCase(authorizationUser.fulfilled, (state: ArtistState, action) => {
             state.user = action.payload;
             state.loader = false;
-            console.log(state.user)
         });
         builder.addCase(authorizationUser.rejected, (state: ArtistState) => {
             state.loader = false;
