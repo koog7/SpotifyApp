@@ -6,12 +6,15 @@ const tracksHistoryRouter = express.Router();
 tracksHistoryRouter.use(express.json());
 
 tracksHistoryRouter.post( '/', async (req, res )=>{
-    const token = req.get('Authorization');
+    const getToken = req.get('Authorization');
     const trackId = req.body.trackId;
-    if(!token){
+    if(!getToken){
         return res.status(401).send({error: 'Unauthorized'});
     }
     try {
+
+        const [_Bearer , token] = getToken.split(' ');
+
         const user = await User.findOne({token:token});
 
         if(!user){

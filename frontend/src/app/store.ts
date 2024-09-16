@@ -3,6 +3,7 @@ import {ArtistsReducer} from "../containers/Thunk/FetchSlice.ts";
 import storage from 'redux-persist/lib/storage'
 import {persistReducer, persistStore} from 'redux-persist';
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
+import {TrackHistoryReducer} from "../containers/Thunk/TrackHistorySlice.ts";
 
 
 const usersPersistConfig = {
@@ -12,8 +13,9 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-    Artist: persistReducer(usersPersistConfig , ArtistsReducer)
-})
+    Artist: persistReducer(usersPersistConfig, ArtistsReducer),
+    TrackHistory: TrackHistoryReducer,
+});
 
 export const store = configureStore({
     reducer: rootReducer,

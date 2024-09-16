@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../app/store.ts";
+import {AppDispatch, RootState, store} from "../app/store.ts";
 import {getTracks} from "./Thunk/FetchSlice.ts";
+import {postTrack} from "./Thunk/TrackHistorySlice.ts";
 
 const TrackList = () => {
 
@@ -10,14 +11,14 @@ const TrackList = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const allTracks = useSelector((state: RootState) => state.Artist.allTracks);
+    const userData = useSelector((state: RootState) => state.Artist.user);
 
     useEffect(() => {
         dispatch(getTracks(id))
-        console.log()
-    }, [dispatch, id]);
+    }, [id]);
 
-    const getIdTrack = (id) => {
-        console.log(id)
+    const getIdTrack = async (id) => {
+        dispatch(postTrack({token: userData.token , trackId: id}))
     }
 
     return (
