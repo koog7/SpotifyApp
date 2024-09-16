@@ -10,24 +10,24 @@ tracksHistoryRouter.use(express.json());
 
 tracksHistoryRouter.get('/', async (req, res) => {
     const getToken = req.get('Authorization');
-    console.log(getToken);
-    if (!getToken) {
+
+    if(!getToken){
         return res.status(401).send({ error: 'Unauthorized' });
     }
 
-    try {
+    try{
         const [_Bearer, token] = getToken.split(' ');
 
         const user = await User.findOne({token: token});
 
-        if (!user) {
+        if(!user){
             return res.status(400).send({error: 'User not found'});
         }
 
-        const listenedTracks = await TrackHistory.find({userId: user._id.toString()}).sort({datetime: -1});;
+        const listenedTracks = await TrackHistory.find({userId: user._id.toString()}).sort({datetime: -1});
 
-        if (!listenedTracks || listenedTracks.length === 0) {
-            return res.status(400).send({ error: 'Tracks not found' });
+        if(!listenedTracks){
+            return res.status(400).send({error:'Tracks not found'})
         }
 
         const trackIds = listenedTracks.map(track => track.trackId);

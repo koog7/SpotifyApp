@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {RootState} from "../app/store.ts";
 
@@ -7,10 +7,11 @@ const SideBar = () => {
 
     const loader = useSelector((state: RootState) => state.Artist.loader);
     const userData = useSelector((state: RootState) => state.Artist.user);
-
+    const navigate = useNavigate();
 
     const logOut = async () => {
         await localStorage.removeItem("persist:liteSpotify:Artist");
+        await navigate('/')
         location.reload()
     }
 
