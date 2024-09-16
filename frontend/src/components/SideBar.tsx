@@ -22,7 +22,7 @@ const SideBar = () => {
                 </div>
                 <div className="sidebar">
                     <h2>
-                        <NavLink className="nav-link" to="/">Lite <span>Spotify</span></NavLink>
+                        <NavLink className="nav-link" to="/">Like <span>Spotify</span></NavLink>
                     </h2>
                     <div className="user-section">
                         {userData && userData.username ? (
