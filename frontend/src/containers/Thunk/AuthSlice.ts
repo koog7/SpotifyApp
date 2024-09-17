@@ -58,6 +58,7 @@ export const UserSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state: UserState, action) => {
             state.user = action.payload;
             state.loader = false;
+            state.error = null;
         });
         builder.addCase(loginUser.rejected, (state: UserState , action) => {
             state.loader = false;
@@ -70,11 +71,12 @@ export const UserSlice = createSlice({
         builder.addCase(authorizationUser.fulfilled, (state: UserState, action) => {
             state.user = action.payload;
             state.loader = false;
+            state.error = null;
         });
         builder.addCase(authorizationUser.rejected, (state: UserState , action) => {
             state.loader = false;
             state.error = action.payload as string;
-            console.log(action.payload)
+
         });
     },
 })

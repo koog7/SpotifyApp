@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {authorizationUser, loginUser} from "../Thunk/AuthSlice.ts";
+import {authorizationUser} from "../Thunk/AuthSlice.ts";
 
 const SignIn = () => {
 
