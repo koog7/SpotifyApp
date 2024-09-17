@@ -7,11 +7,7 @@ import {authorizationUser, loginUser} from "../Thunk/AuthSlice.ts";
 const SignIn = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const error = useSelector((state: RootState) => state.Artist.error);
-
-    useEffect(() => {
-        console.log(error)
-    }, [error]);
+    const error = useSelector((state: RootState) => state.User.error);
 
     const [login, setLogin] = useState({
         username: '',
@@ -27,10 +23,13 @@ const SignIn = () => {
     const submitData = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        await dispatch(authorizationUser(login))
-
-        if(error){
-            await navigate('/')
+        try {
+            const resultAction = await dispatch(authorizationUser(login));
+            if (authorizationUser.fulfilled.match(resultAction)) {
+                navigate('/');
+            }
+        } catch (error) {
+            console.log('Unexpected Error:', error);
         }
 
     };
@@ -47,7 +46,9 @@ const SignIn = () => {
                     <label htmlFor="password">Password</label>
 
                     <input type="password" name="password" placeholder="Enter your password" value={login.password} onChange={getValueInput} required/>
-                    <p>123123</p>
+                    {error && (
+                        <p style={{ color: 'red' }}>{error}</p>
+                    )}
                 </div>
                 <button type="submit" className="signin-button">Sign In</button>
             </form>

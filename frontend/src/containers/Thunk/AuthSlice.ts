@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {RootState} from "../../app/store.ts";
 import axiosAPI from "../../axios/AxiosAPI.ts";
 
 export interface User{
@@ -32,12 +31,13 @@ export const loginUser = createAsyncThunk<User , LoginData , { rejectValue: stri
     }
 });
 
-export const authorizationUser = createAsyncThunk<User , LoginData , { state: RootState }>('users/singUp', async (loginData: { username: string; password: string }) => {
+export const authorizationUser = createAsyncThunk<User , LoginData , { rejectValue: string }>('users/singUp', async (loginData: { username: string; password: string }, { rejectWithValue }) => {
     try{
         const response = await axiosAPI.post(`/users/sessions` , loginData);
         return response.data;
     }catch (error) {
-        console.error('Error:', error);
+        console.error('Error details:', error.response);
+        return rejectWithValue(error.response?.data?.message || 'Username or password wrong');
     }
 });
 
@@ -74,6 +74,7 @@ export const UserSlice = createSlice({
         builder.addCase(authorizationUser.rejected, (state: UserState , action) => {
             state.loader = false;
             state.error = action.payload as string;
+            console.log(action.payload)
         });
     },
 })
