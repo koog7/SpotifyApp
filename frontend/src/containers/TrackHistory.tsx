@@ -13,13 +13,17 @@ const TrackHistory = () => {
 
 
     useEffect(() => {
-        if(!userData){
-            navigate('/login')
+        if (!userData || !userData.token) {
+            navigate('/login');
         }
     }, [userData , navigate]);
 
     useEffect(() => {
-        dispatch(getTrack(userData.token))
+
+        if(userData){
+            dispatch(getTrack(userData.token))
+        }
+
     }, [dispatch , userData]);
 
     return (
@@ -38,19 +42,20 @@ const TrackHistory = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {tracksHistoryData.map(track => track ? (
-                        <tr key={track.trackId}>
-                            <td>{track.title}</td>
-                            <td>{track.artistName}</td>
-                            <td>{track.trackDuration}</td>
-                            <td>{track.listenedAt.replace('T', ' ').replace('Z', ' ').slice(0, -5)}</td>
-                        </tr>
+                    {tracksHistoryData && tracksHistoryData.length > 0 ? (
+                        tracksHistoryData.map(track => (
+                            <tr key={track.trackId}>
+                                <td>{track.title}</td>
+                                <td>{track.artistName}</td>
+                                <td>{track.trackDuration}</td>
+                                <td>{track.listenedAt.replace('T', ' ').replace('Z', ' ').slice(0, -5)}</td>
+                            </tr>
+                        ))
                     ) : (
-                        <div>
-                            <p>There are no tracks</p>
-                        </div>
-                    ))}
-
+                        <tr>
+                            <td>There are no tracks</td>
+                        </tr>
+                    )}
                     </tbody>
                 </table>
             </div>

@@ -38,7 +38,7 @@ const SignIn = () => {
     return (
         <div className="signin-container">
             <form className="signin-form" onSubmit={submitData}>
-                <h2>Sign <span style={{color:'limegreen'}}>In</span></h2>
+                <h2>Log <span style={{color:'limegreen'}}>In</span></h2>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
                     <input type="text" name="username" placeholder="Enter your username" value={login.username} onChange={getValueInput} required/>

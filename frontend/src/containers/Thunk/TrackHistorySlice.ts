@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {User} from "./FetchSlice.ts";
 import {RootState} from "../../app/store.ts";
 import axiosAPI from "../../axios/AxiosAPI.ts";
+import {User} from "./AuthSlice.ts";
 
 interface FetchData {
     token:string,

@@ -1,7 +1,6 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axiosAPI from "../../axios/AxiosAPI.ts";
 import {RootState} from "../../app/store.ts";
-
 
 
 interface Artists{

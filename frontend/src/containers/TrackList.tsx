@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState, store} from "../app/store.ts";
+import {AppDispatch, RootState} from "../app/store.ts";
 import {getTracks} from "./Thunk/FetchSlice.ts";
 import {postTrack} from "./Thunk/TrackHistorySlice.ts";
 

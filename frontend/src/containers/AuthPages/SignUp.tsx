@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {authorizationUser} from "../Thunk/AuthSlice.ts";
+import {loginUser} from "../Thunk/AuthSlice.ts";
 
 
 const SignUp = () => {
@@ -21,14 +21,14 @@ const SignUp = () => {
 
     const submitData = async (e: React.FormEvent) => {
         e.preventDefault();
-        await dispatch(authorizationUser(login))
+        await dispatch(loginUser(login))
         await navigate('/')
     };
 
     return (
         <div className="signin-container">
             <form className="signin-form" onSubmit={submitData}>
-                <h2>Log <span style={{color: 'limegreen'}}>In</span></h2>
+                <h2>Sign <span style={{color: 'limegreen'}}>Up</span></h2>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
                     <input type="text" name="username" placeholder="Enter your username" value={login.username}
