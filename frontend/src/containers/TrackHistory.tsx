@@ -8,7 +8,7 @@ const TrackHistory = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const userData = useSelector((state: RootState) => state.Artist.user);
+    const userData = useSelector((state: RootState) => state.User.user);
     const tracksHistoryData = useSelector((state: RootState) => state.TrackHistory.allTracks);
 
 

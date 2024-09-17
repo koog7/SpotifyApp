@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import {persistReducer, persistStore} from 'redux-persist';
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 import {TrackHistoryReducer} from "../containers/Thunk/TrackHistorySlice.ts";
+import {UserReducer} from "../containers/Thunk/AuthSlice.ts";
 
 
 const usersPersistConfig = {
@@ -13,8 +14,9 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-    Artist: persistReducer(usersPersistConfig, ArtistsReducer),
+    User: persistReducer(usersPersistConfig, UserReducer),
     TrackHistory: TrackHistoryReducer,
+    Artist: ArtistsReducer
 });
 
 export const store = configureStore({

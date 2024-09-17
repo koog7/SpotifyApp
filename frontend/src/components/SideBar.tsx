@@ -6,7 +6,7 @@ import {RootState} from "../app/store.ts";
 const SideBar = () => {
 
     const loader = useSelector((state: RootState) => state.Artist.loader);
-    const userData = useSelector((state: RootState) => state.Artist.user);
+    const userData = useSelector((state: RootState) => state.User.user);
     const navigate = useNavigate();
 
     const logOut = async () => {

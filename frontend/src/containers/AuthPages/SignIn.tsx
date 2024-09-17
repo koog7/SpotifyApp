@@ -1,12 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
-import {loginUser} from "../Thunk/FetchSlice.ts";
 import {useNavigate} from "react-router-dom";
+import {loginUser} from "../Thunk/AuthSlice.ts";
 
 const SignIn = () => {
 
     const dispatch = useDispatch<AppDispatch>();
+    const error = useSelector((state: RootState) => state.Artist.error);
+
+    useEffect(() => {
+        console.log(error)
+    }, [error]);
+
     const [login, setLogin] = useState({
         username: '',
         password: '',
@@ -22,7 +28,11 @@ const SignIn = () => {
         e.preventDefault();
 
         await dispatch(loginUser(login))
-        await navigate('/')
+
+        if(!error){
+            await navigate('/')
+        }
+
     };
 
     return (

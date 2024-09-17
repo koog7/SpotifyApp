@@ -11,7 +11,7 @@ const TrackList = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const allTracks = useSelector((state: RootState) => state.Artist.allTracks);
-    const userData = useSelector((state: RootState) => state.Artist.user);
+    const userData = useSelector((state: RootState) => state.User.user);
 
     useEffect(() => {
         dispatch(getTracks(id))
