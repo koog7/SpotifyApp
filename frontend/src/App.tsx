@@ -7,6 +7,7 @@ import SignIn from "./containers/AuthPages/SignIn.tsx";
 import SignUp from "./containers/AuthPages/SignUp.tsx";
 import SideBar from "./components/SideBar.tsx";
 import TrackHistory from "./containers/TrackHistory.tsx";
+import NotFound from "./components/NotFound.tsx";
 
 const App = () => {
 
@@ -35,6 +36,9 @@ const App = () => {
                         )}/>
                         <Route path="/tracks/:id" element={(
                             <TrackList/>
+                        )}/>
+                        <Route path="*" element={(
+                            <NotFound />
                         )}/>
                     </Routes>
                 </div>
