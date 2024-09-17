@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {loginUser} from "../Thunk/AuthSlice.ts";
+import {authorizationUser, loginUser} from "../Thunk/AuthSlice.ts";
 
 
 const SignUp = () => {

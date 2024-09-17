@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {loginUser} from "../Thunk/AuthSlice.ts";
+import {authorizationUser, loginUser} from "../Thunk/AuthSlice.ts";
 
 const SignIn = () => {
 
@@ -27,7 +27,8 @@ const SignIn = () => {
     const submitData = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        await dispatch(loginUser(login))
+
+        await dispatch(authorizationUser(login))
 
         if(!error){
             await navigate('/')

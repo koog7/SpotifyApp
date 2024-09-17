@@ -13,6 +13,7 @@ const TrackList = () => {
     const allTracks = useSelector((state: RootState) => state.Artist.allTracks);
     const userData = useSelector((state: RootState) => state.User.user);
 
+
     useEffect(() => {
         dispatch(getTracks(id))
     }, [id]);
@@ -20,6 +21,7 @@ const TrackList = () => {
     const getIdTrack = async (id) => {
         dispatch(postTrack({token: userData.token , trackId: id}))
     }
+
 
     return (
         <div>
@@ -39,7 +41,9 @@ const TrackList = () => {
                     <table className="tracklist-table">
                         <thead>
                         <tr>
-                            <th></th>
+                            {userData && (
+                                <th></th>
+                            )}
                             <th>#</th>
                             <th>Название трека</th>
                             <th>Длительность</th>
@@ -48,9 +52,11 @@ const TrackList = () => {
                         <tbody>
                         {allTracks.map(track => track?  (
                             <tr key={track._id}>
-                                <td>
-                                    <button onClick={() => getIdTrack(track._id)}>Play</button>
-                                </td>
+                                {userData && (
+                                    <td>
+                                        <button onClick={() => getIdTrack(track._id)}>Play</button>
+                                    </td>
+                                )}
                                 <td>{track.numberTrack}</td>
                                 <td>{track.title}</td>
                                 <td>{track.duration}</td>

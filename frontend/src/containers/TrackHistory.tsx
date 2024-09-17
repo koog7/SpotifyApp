@@ -44,7 +44,7 @@ const TrackHistory = () => {
                     <tbody>
                     {tracksHistoryData && tracksHistoryData.length > 0 ? (
                         tracksHistoryData.map(track => (
-                            <tr key={track.trackId}>
+                            <tr key={Math.random()}>
                                 <td>{track.title}</td>
                                 <td>{track.artistName}</td>
                                 <td>{track.trackDuration}</td>
