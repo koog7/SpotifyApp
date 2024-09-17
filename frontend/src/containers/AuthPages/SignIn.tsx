@@ -27,10 +27,9 @@ const SignIn = () => {
     const submitData = async (e: React.FormEvent) => {
         e.preventDefault();
 
-
         await dispatch(authorizationUser(login))
 
-        if(!error){
+        if(error){
             await navigate('/')
         }
 
@@ -46,7 +45,9 @@ const SignIn = () => {
                 </div>
                 <div className="input-group">
                     <label htmlFor="password">Password</label>
+
                     <input type="password" name="password" placeholder="Enter your password" value={login.password} onChange={getValueInput} required/>
+                    <p>123123</p>
                 </div>
                 <button type="submit" className="signin-button">Sign In</button>
             </form>

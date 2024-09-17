@@ -137,10 +137,11 @@
 
 .signin-container {
   display: flex;
-  min-height: 350px;
+  min-height: 400px;
   margin-left: 50px;
   margin-top: 140px;
   width: 419px;
+  padding-bottom: 20px;
 }
 
 .signin-form {

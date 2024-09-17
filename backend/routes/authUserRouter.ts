@@ -9,6 +9,13 @@ authUserRouter.use(express.json());
 
 authUserRouter.post( '/', async (req, res, next )=>{
     try {
+
+        const existingUser = await User.findOne({ username: req.body.username });
+
+        if (existingUser) {
+            return res.status(400).send({ message: 'Username already taken' });
+        }
+
         const user = new User({
             username: req.body.username,
             password: req.body.password,

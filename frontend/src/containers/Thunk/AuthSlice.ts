@@ -15,20 +15,20 @@ interface LoginData {
 interface UserState {
     user: User | null;
     loader: boolean;
-    error: boolean;
+    error: string | null;
 }
 
 const initialState: UserState = {
     user: null,
     loader: false,
-    error: false,
+    error: null,
 };
-export const loginUser = createAsyncThunk<User , LoginData , { state: RootState }>('users/singIn', async (loginData: { username: string; password: string }) => {
+export const loginUser = createAsyncThunk<User , LoginData , { rejectValue: string }>('users/singIn', async (loginData: { username: string; password: string } , { rejectWithValue }) => {
     try{
         const response = await axiosAPI.post(`/users` , loginData);
         return response.data;
     }catch (error) {
-        console.error('Error:', error);
+        return rejectWithValue(error.response?.data?.message);
     }
 });
 
@@ -53,27 +53,27 @@ export const UserSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(loginUser.pending, (state: UserState) => {
             state.loader = true;
-            state.error = false;
+            state.error = null;
         });
         builder.addCase(loginUser.fulfilled, (state: UserState, action) => {
             state.user = action.payload;
             state.loader = false;
         });
-        builder.addCase(loginUser.rejected, (state: UserState) => {
+        builder.addCase(loginUser.rejected, (state: UserState , action) => {
             state.loader = false;
-            state.error = true;
+            state.error = action.payload as string;
         });
         builder.addCase(authorizationUser.pending, (state: UserState) => {
             state.loader = true;
-            state.error = false;
+            state.error = null;
         });
         builder.addCase(authorizationUser.fulfilled, (state: UserState, action) => {
             state.user = action.payload;
             state.loader = false;
         });
-        builder.addCase(authorizationUser.rejected, (state: UserState) => {
+        builder.addCase(authorizationUser.rejected, (state: UserState , action) => {
             state.loader = false;
-            state.error = true;
+            state.error = action.payload as string;
         });
     },
 })
