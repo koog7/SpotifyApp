@@ -50,4 +50,27 @@ artistsRouter.delete('/artists/:id', authCheck , permit('admin') , async (req ,r
     await Artist.findByIdAndDelete(id)
     res.send({success : 'Deleted!'})
 })
+
+artistsRouter.patch('/artists/:id/togglePublished', authCheck, permit('admin'), async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).send({ error: 'Artist cannot be edited' });
+    }
+
+    try {
+        const findArtist = await Artist.findOne({ _id: id });
+
+        if (!findArtist) {
+            return res.status(404).send({ error: 'Artist not found' });
+        }
+
+        findArtist.isPublished = !findArtist.isPublished;
+
+        await findArtist.save();
+        res.send({ success: 'Patched' });
+    } catch (error) {
+        res.status(500).send({ error: 'Something went wrong' });
+    }
+});
 export default artistsRouter;

@@ -4,6 +4,7 @@ import Album from "../models/Albums";
 import Artist from "../models/Artists";
 import authCheck from "../middleware/authCheck";
 import permit from "../middleware/permit";
+import albumsRouter from "./albumsRoutes";
 
 const tracksRouter = express.Router();
 tracksRouter.use(express.json());
@@ -87,4 +88,28 @@ tracksRouter.delete('/tracks/:id' , authCheck , permit('admin'), async (req, res
     await Track.findByIdAndDelete(id)
     res.send({success : 'Deleted!'})
 })
+
+
+tracksRouter.patch('/tracks/:id/togglePublished', authCheck, permit('admin'), async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).send({ error: 'Track cannot be edited' });
+    }
+
+    try {
+        const findTrack = await Track.findOne({ _id: id });
+
+        if (!findTrack) {
+            return res.status(404).send({ error: 'Track not found' });
+        }
+
+        findTrack.isPublished = !findTrack.isPublished;
+
+        await findTrack.save();
+        res.send({ success: 'Patched' });
+    } catch (error) {
+        res.status(500).send({ error: 'Something went wrong' });
+    }
+});
 export default tracksRouter;
