@@ -3,12 +3,14 @@ import {imagesUpload} from "../multer";
 import Album from "../models/Albums";
 import Artist from "../models/Artists";
 import Track from "../models/Tracks";
+import authCheck from "../middleware/authCheck";
+import permit from "../middleware/permit";
 
 
 const albumsRouter = express.Router();
 albumsRouter.use(express.json());
 
-albumsRouter.post( '/albums', imagesUpload.single('photo'), async (req, res )=>{
+albumsRouter.post( '/albums', authCheck, imagesUpload.single('photo'), async (req, res )=>{
     try {
         const ArtistObject = new Album({
             title: req.body.title,
@@ -103,5 +105,15 @@ albumsRouter.get( '/albums/:id', async (req, res )=>{
     }
 });
 
+albumsRouter.delete('/albums/:id', authCheck , permit('admin') , async (req ,res) =>{
+    const {id} = req.params;
+
+    if(!id){
+        return res.status(400).send({error:'Album cant be deleted'})
+    }
+
+    await Album.findByIdAndDelete(id)
+    res.send({success : 'Deleted!'})
+})
 export default albumsRouter;
 

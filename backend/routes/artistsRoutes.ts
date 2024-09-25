@@ -1,11 +1,14 @@
 import express from "express";
 import {imagesUpload} from "../multer";
 import Artist from "../models/Artists";
+import authCheck, {RequestWithUser} from "../middleware/authCheck";
+import permit from "../middleware/permit";
 
 const artistsRouter = express.Router();
 artistsRouter.use(express.json());
 
-artistsRouter.post( '/artists', imagesUpload.single('photo'), async (req, res )=>{
+artistsRouter.post( '/artists', authCheck , imagesUpload.single('photo'), async (req: RequestWithUser, res )=>{
+
     try {
         const ArtistObject = new Artist({
             name: req.body.name,
@@ -37,5 +40,14 @@ artistsRouter.get( '/artists', async (req, res )=>{
     }
 });
 
+artistsRouter.delete('/artists/:id', authCheck , permit('admin') , async (req ,res) =>{
+    const {id} = req.params;
 
+    if(!id){
+        return res.status(400).send({error:'Artist cant be deleted'})
+    }
+
+    await Artist.findByIdAndDelete(id)
+    res.send({success : 'Deleted!'})
+})
 export default artistsRouter;

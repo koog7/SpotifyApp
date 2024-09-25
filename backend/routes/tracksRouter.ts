@@ -1,14 +1,14 @@
 import express from "express";
 import Track from "../models/Tracks";
-import User from "../models/Users";
-import TrackHistory from "../models/TrackHistory";
 import Album from "../models/Albums";
 import Artist from "../models/Artists";
+import authCheck from "../middleware/authCheck";
+import permit from "../middleware/permit";
 
 const tracksRouter = express.Router();
 tracksRouter.use(express.json());
 
-tracksRouter.post( '/tracks', async (req, res )=>{
+tracksRouter.post( '/tracks', authCheck, async (req, res )=>{
     try {
         const TrackObject = new Track({
             title: req.body.title,
@@ -77,4 +77,14 @@ tracksRouter.get( '/tracks', async (req, res )=>{
 
 });
 
+tracksRouter.delete('/tracks/:id' , authCheck , permit('admin'), async (req, res )=>{
+    const {id} = req.params;
+
+    if(!id){
+        return res.status(400).send({error:'Track cant be deleted'})
+    }
+
+    await Track.findByIdAndDelete(id)
+    res.send({success : 'Deleted!'})
+})
 export default tracksRouter;
