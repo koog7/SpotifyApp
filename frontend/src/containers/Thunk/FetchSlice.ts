@@ -18,6 +18,7 @@ interface Albums{
     photo: string;
     title: string;
     trackCount: number;
+    isPublished: boolean,
 }
 interface Tracks{
     _id: string;
@@ -73,7 +74,8 @@ export const getAlbums = createAsyncThunk<Albums[], string , { state: RootState 
             dataRelease: item.dataRelease,
             photo: item.photo,
             title: item.title,
-            trackCount: item.trackCount
+            trackCount: item.trackCount,
+            isPublished: item.isPublished,
         }));
     }catch (error) {
         console.error('Error:', error);

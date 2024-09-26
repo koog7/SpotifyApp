@@ -40,10 +40,10 @@ const App = () => {
                         <Route path="/tracks/:id" element={(
                             <TrackList/>
                         )}/>
-                        <Route path="/createArtist" element={(
+                        <Route path="/createAlbum" element={(
                             <ArtistCreate />
                         )}/>
-                        <Route path="/createAlbum" element={(
+                        <Route path="/createArtist" element={(
                             <AlbumsForm />
                         )}/>
                         <Route path="/createTrack" element={(

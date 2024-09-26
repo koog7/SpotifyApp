@@ -48,6 +48,7 @@ tracksRouter.get( '/tracks', async (req, res )=>{
                 albumId: track.albumId,
                 duration: track.duration,
                 numberTrack: track.numberTrack,
+                isPublished: track.isPublished,
                 album: {
                     title: getInfoAlbum.title,
                     dataRelease: getInfoAlbum.dataRelease,

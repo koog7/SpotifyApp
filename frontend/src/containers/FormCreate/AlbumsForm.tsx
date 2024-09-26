@@ -39,7 +39,7 @@ const AlbumsForm = () => {
     }
 
     return (
-        <div>
+        <div style={{width:'475px'}}>
             <form className="form-container" onSubmit={onSubmitData}>
                 <h2>Создание Артиста</h2>
                 <input

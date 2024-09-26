@@ -26,7 +26,20 @@ export const postArtist = createAsyncThunk<void , {name: string, info:string, ph
         console.error('Error:', error);
     }
 });
+export const postAlbum = createAsyncThunk<void , {title: string, artistId:string,dataRelease: string, photo : File , token:string} , { state: RootState }>('form/postAlbum', async ({ title, artistId , dataRelease, photo, token  }) => {
+    try{
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('artistId', artistId);
+        formData.append('dataRelease', dataRelease);
+        formData.append('photo', photo);
 
+        // noinspection JSAnnotator
+        await axiosAPI.post(`/albums` , formData , { headers: { 'Authorization': `Bearer ${token}` } });
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
 export const FormPost = createSlice({
     name: 'PostData',
     initialState,

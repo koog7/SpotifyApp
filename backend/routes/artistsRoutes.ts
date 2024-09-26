@@ -10,6 +10,10 @@ artistsRouter.use(express.json());
 artistsRouter.post( '/artists', authCheck , imagesUpload.single('photo'), async (req: RequestWithUser, res )=>{
 
     try {
+
+        console.log('Received data:', req.body);
+        console.log('Received file:', req.file);
+
         const ArtistObject = new Artist({
             name: req.body.name,
             photo: req.file ? req.file.filename : null,
@@ -19,7 +23,7 @@ artistsRouter.post( '/artists', authCheck , imagesUpload.single('photo'), async 
         await ArtistObject.save()
         res.send(ArtistObject)
     }catch (e) {
-        res.send('cant be created')
+        res.status(500).send('cant be created');
     }
 });
 
@@ -31,7 +35,8 @@ artistsRouter.get( '/artists', async (req, res )=>{
             _id: artist._id,
             name: artist.name,
             info: artist.info,
-            photo: artist.photo
+            photo: artist.photo,
+            isPublished: artist.isPublished,
         }));
 
         res.send(artistInfo)

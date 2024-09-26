@@ -43,7 +43,8 @@ albumsRouter.get( '/albums', async (req, res )=>{
                         title: album.title,
                         dataRelease: album.dataRelease,
                         photo: album.photo,
-                        trackCount: trackCount
+                        trackCount: trackCount,
+                        isPublished: album.isPublished,
                     };
                 })
             );
@@ -63,7 +64,8 @@ albumsRouter.get( '/albums', async (req, res )=>{
                     title: album.title,
                     dataRelease: album.dataRelease,
                     photo: album.photo,
-                    trackCount: trackCount
+                    trackCount: trackCount,
+                    isPublished: album.isPublished,
                 };
             })
         );
@@ -98,6 +100,7 @@ albumsRouter.get( '/albums/:id', async (req, res )=>{
             album: album.title,
             photo: album.photo,
             dataRelease: album.dataRelease,
+
         }
         res.send(allInfo)
 

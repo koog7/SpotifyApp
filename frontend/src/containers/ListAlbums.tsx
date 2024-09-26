@@ -16,13 +16,12 @@ const ListAlbums = () => {
         dispatch(getAlbums(id))
     }, [dispatch]);
 
-
     return (
 
         <div style={{display: 'flex', gap: '20px', marginTop: '50px' ,marginLeft:'110px'}}>
             {certainAlbums.map((artist) => (artist ? (
                     <div key={artist._id}>
-                        <AlbumCard title={artist.title} photo={artist.photo} _id={artist._id} dataRelease={artist.dataRelease} trackCount={artist.trackCount}/>
+                        <AlbumCard title={artist.title} photo={artist.photo} _id={artist._id} dataRelease={artist.dataRelease} trackCount={artist.trackCount} isPublished={artist.isPublished}/>
                     </div>
                 ) : <p>Loading</p>
             ))}
