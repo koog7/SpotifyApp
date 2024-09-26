@@ -5,6 +5,7 @@ import {persistReducer, persistStore} from 'redux-persist';
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 import {TrackHistoryReducer} from "../containers/Thunk/TrackHistorySlice.ts";
 import {UserReducer} from "../containers/Thunk/AuthSlice.ts";
+import {FormReducer} from "../containers/Thunk/PostSlice/DataSlice.ts";
 
 
 const usersPersistConfig = {
@@ -16,7 +17,8 @@ const usersPersistConfig = {
 const rootReducer = combineReducers({
     User: persistReducer(usersPersistConfig, UserReducer),
     TrackHistory: TrackHistoryReducer,
-    Artist: ArtistsReducer
+    Artist: ArtistsReducer,
+    PostData: FormReducer,
 });
 
 export const store = configureStore({
