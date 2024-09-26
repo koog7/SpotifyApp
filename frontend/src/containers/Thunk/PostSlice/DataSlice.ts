@@ -14,7 +14,6 @@ const initialState: DataState = {
 
 export const postArtist = createAsyncThunk<void , {name: string, info:string, photo : File , token:string} , { state: RootState }>('form/postArtist', async ({ name, info, photo, token }) => {
     try{
-        console.log(name , info , photo , token)
         const formData = new FormData();
         formData.append('name', name);
         formData.append('info', info);
@@ -28,8 +27,6 @@ export const postArtist = createAsyncThunk<void , {name: string, info:string, ph
 });
 export const postAlbum = createAsyncThunk<void , {title: string, artistId:string,dataRelease: string, photo : File , token:string} , { state: RootState }>('form/postAlbum', async ({ title, artistId , dataRelease, photo, token  }) => {
     try{
-
-        console.log(title)
         const formData = new FormData();
         formData.append('title', title);
         formData.append('artistId', artistId);
@@ -38,6 +35,15 @@ export const postAlbum = createAsyncThunk<void , {title: string, artistId:string
 
         // noinspection JSAnnotator
         await axiosAPI.post(`/albums` , formData , { headers: { 'Authorization': `Bearer ${token}` } });
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const postTrack = createAsyncThunk<void , {title: string, albumId:string,duration: string , token:string} , { state: RootState }>('form/postTrack', async ({ title, albumId , duration, token  }) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.post(`/tracks` , { title, albumId, duration } , { headers: { 'Authorization': `Bearer ${token}` } });
     }catch (error) {
         console.error('Error:', error);
     }
@@ -60,6 +66,30 @@ export const FormPost = createSlice({
             state.error = null;
         });
         builder.addCase(postArtist.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(postAlbum.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(postAlbum.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(postAlbum.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(postTrack.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(postTrack.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(postTrack.rejected, (state: DataState, action) => {
             state.loader = false;
             state.error = action.payload as string;
         });

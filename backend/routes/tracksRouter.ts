@@ -11,15 +11,20 @@ tracksRouter.use(express.json());
 
 tracksRouter.post( '/tracks', authCheck, async (req, res )=>{
     try {
+        console.log(req.body)
+        const trackCount = await Track.countDocuments({ albumId: req.body.albumId });
+
         const TrackObject = new Track({
             title: req.body.title,
             albumId: req.body.albumId,
             duration: req.body.duration,
+            numberTrack: trackCount + 1
         })
 
         await TrackObject.save()
         res.send(TrackObject)
     }catch (e) {
+        console.error(e);
         res.send('cant be created')
     }
 });
