@@ -10,6 +10,7 @@ const ListAlbums = () => {
     const {id} = useParams();
 
     const dispatch = useDispatch<AppDispatch>();
+
     const certainAlbums = useSelector((state: RootState) => state.Artist.certainAlbums);
 
     useEffect(() => {

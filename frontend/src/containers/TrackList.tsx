@@ -22,9 +22,6 @@ const TrackList = () => {
         dispatch(postTrack({token: userData.token , trackId: id}))
     }
 
-    useEffect(() => {
-        console.log(allTracks)
-    }, [allTracks]);
     return (
         <div>
             <div style={{display:'flex', marginTop:'50px', marginLeft:'25px'}}>
@@ -53,7 +50,7 @@ const TrackList = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {allTracks.map(track => track?  (
+                        {allTracks.filter(track => {if (!userData) return track.isPublished; return userData.role !== 'user' || track.isPublished;}).map(track => track?  (
                             <tr key={track._id}>
                                 {userData && (
                                     <td>

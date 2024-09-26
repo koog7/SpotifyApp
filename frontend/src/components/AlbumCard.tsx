@@ -1,5 +1,7 @@
 import {NavLink} from "react-router-dom";
 import React from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "../app/store.ts";
 
 
 interface Props{
@@ -12,6 +14,17 @@ interface Props{
 }
 
 const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo , trackCount , isPublished}) => {
+
+    const userData = useSelector((state: RootState) => state.User.user);
+
+    if (!userData && !isPublished) {
+        return null;
+    }
+
+    if (userData && userData.role === 'user' && !isPublished) {
+        return null;
+    }
+
     return (
         <div>
             <NavLink className="nav-link" to={`/tracks/${_id}`} style={{textDecoration: 'none'}}>
