@@ -1,9 +1,10 @@
-import React, {ChangeEvent, FormEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {postArtist} from "../Thunk/PostSlice/DataSlice.ts";
+import {useNavigate} from "react-router-dom";
 
-const AlbumCreate = () => {
+const AlbumsForm = () => {
 
     const [data, setData] = useState({
         name: '',
@@ -12,6 +13,7 @@ const AlbumCreate = () => {
     const urlFile = useRef(null)
     const [file, setFile] = useState<File | null>(null);
     const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate();
 
     const userData = useSelector((state: RootState) => state.User.user);
     const valueChecker = (e) => {
@@ -31,15 +33,9 @@ const AlbumCreate = () => {
 
     const onSubmitData = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-
-        console.log('Submitting Artist:', {
-            name: data.name,
-            info: data.info,
-            photo: file,
-            token: userData?.token,
-        });
-
         await dispatch(postArtist({name: data.name, info:data.info, photo : file , token:userData?.token}))
+
+        navigate('/')
     }
 
     return (
@@ -69,4 +65,4 @@ const AlbumCreate = () => {
     );
 };
 
-export default AlbumCreate;
+export default AlbumsForm;
