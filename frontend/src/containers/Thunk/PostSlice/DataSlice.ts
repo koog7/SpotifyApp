@@ -28,6 +28,8 @@ export const postArtist = createAsyncThunk<void , {name: string, info:string, ph
 });
 export const postAlbum = createAsyncThunk<void , {title: string, artistId:string,dataRelease: string, photo : File , token:string} , { state: RootState }>('form/postAlbum', async ({ title, artistId , dataRelease, photo, token  }) => {
     try{
+
+        console.log(title)
         const formData = new FormData();
         formData.append('title', title);
         formData.append('artistId', artistId);
