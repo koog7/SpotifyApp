@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import Artist from "./models/Artists";
 import Album from "./models/Albums";
 import Track from "./models/Tracks";
+import User from "./models/Users";
+import {randomUUID} from "crypto";
 
 const run = async () => {
     await mongoose.connect('mongodb://127.0.0.1:27017/spotifyAPI');
@@ -10,9 +12,25 @@ const run = async () => {
         await db.dropCollection('artists')
         await db.dropCollection('albums')
         await db.dropCollection('tracks')
+        await db.dropCollection('users')
     }catch (e) {
         console.log(e)
     }
+
+    await User.create([
+        {
+            username:'User1',
+            password:'password1',
+            token:randomUUID(),
+            role: 'user'
+        },
+        {
+            username:'Admin1',
+            password:'password2',
+            token:randomUUID(),
+            role: 'admin'
+        }
+    ])
 
     const artists = await Artist.create([
         {

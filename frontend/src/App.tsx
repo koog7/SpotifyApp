@@ -8,6 +8,9 @@ import SignUp from "./containers/AuthPages/SignUp.tsx";
 import SideBar from "./components/SideBar.tsx";
 import TrackHistory from "./containers/TrackHistory.tsx";
 import NotFound from "./components/NotFound.tsx";
+import ArtistCreate from "./containers/FormCreate/ArtistCreate.tsx";
+import AlbumCreate from "./containers/FormCreate/AlbumCreate.tsx";
+import TrackCreate from "./containers/FormCreate/TrackCreate.tsx";
 
 const App = () => {
 
@@ -36,6 +39,15 @@ const App = () => {
                         )}/>
                         <Route path="/tracks/:id" element={(
                             <TrackList/>
+                        )}/>
+                        <Route path="/createArtist" element={(
+                            <ArtistCreate />
+                        )}/>
+                        <Route path="/createAlbum" element={(
+                            <AlbumCreate />
+                        )}/>
+                        <Route path="/createTrack" element={(
+                            <TrackCreate />
                         )}/>
                         <Route path="*" element={(
                             <NotFound />

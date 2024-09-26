@@ -15,9 +15,9 @@ const Home = () => {
 
 
     return (
-        <div style={{marginLeft:'-250px'}}>
+        <div style={{marginLeft:'150px'}}>
             <h1>Хиты этой осени!</h1>
-            <div style={{display: 'flex', gap: '20px', marginTop: '50px'}}>
+            <div style={{display: 'grid',gridTemplateColumns: 'repeat(5, 1fr)', gap: '20px', marginTop: '50px'}}>
                 {allArtists.map((artist) => (artist ? (
                         <div key={artist._id}>
                             <ArtistCard name={artist.name} photo={artist.photo} _id={artist._id}/>

@@ -30,9 +30,11 @@ const SideBar = () => {
                             <div style={{minHeight:'500px'}}>
                                 <p className="welcome-message">Здравствуйте, {userData.username}!</p>
                                 <div style={{marginTop: '50px', display:'flex', flexDirection:'column'}}>
+                                    <NavLink className={'trackH-btn'} to={'/track_history'}>Создать артиста</NavLink>
+                                    <NavLink className={'trackH-btn'} to={'/track_history'}>Создать альбом</NavLink>
+                                    <NavLink className={'trackH-btn'} to={'/track_history'}>Создать трек</NavLink>
                                     <NavLink className={'trackH-btn'} to={'/track_history'}>История прослушивания</NavLink>
-
-                                    <a style={{marginTop:'480px'}} onClick={logOut} className={'logout'}>Выйти из аккаунта</a>
+                                    <a style={{marginTop:'300px'}} onClick={logOut} className={'logout'}>Выйти из аккаунта</a>
                                 </div>
                             </div>
                         ) : (
