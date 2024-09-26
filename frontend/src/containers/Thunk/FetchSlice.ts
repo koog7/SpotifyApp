@@ -8,6 +8,7 @@ interface Artists{
     name: string;
     photo: string;
     info: string;
+    isPublished: boolean,
 }
 
 interface Albums{
@@ -57,6 +58,7 @@ export const getArtists = createAsyncThunk<Artists[], { state: RootState }>('art
             name: item.name,
             photo: item.photo,
             info: item.info,
+            isPublished: item.isPublished,
         }));
     }catch (error) {
         console.error('Error:', error);

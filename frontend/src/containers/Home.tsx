@@ -20,7 +20,7 @@ const Home = () => {
             <div style={{display: 'grid',gridTemplateColumns: 'repeat(5, 1fr)', gap: '20px', marginTop: '50px'}}>
                 {allArtists.map((artist) => (artist ? (
                         <div key={artist._id}>
-                            <ArtistCard name={artist.name} photo={artist.photo} _id={artist._id}/>
+                            <ArtistCard name={artist.name} photo={artist.photo} _id={artist._id} isPublished={artist.isPublished}/>
                         </div>
                     ) : <p>Loading</p>
                 ))}
