@@ -32,11 +32,17 @@ const run = async () => {
             photo: 'artistWeeknd.jpeg',
             info: 'Canadian singer, songwriter, and record producer',
             isPublished: true,
+        },
+        {
+            name: 'Lil Uzi Vert',
+            photo: 'artistLilUziVert.jpeg',
+            info: 'American rapper, singer, and songwriter.',
+            isPublished: false,
         }
     ]);
 
 
-    const [oliverTree, billieEilish, theWeeknd] = artists;
+    const [oliverTree, billieEilish, theWeeknd , lilUziVert] = artists;
 
     const albums = await Album.create([
         {
@@ -81,9 +87,16 @@ const run = async () => {
             title: 'Cowboy Tears',
             isPublished: true,
         },
+        {
+            artistId: lilUziVert._id,
+            dataRelease: 2024,
+            photo: 'unpublishedUziAlbum.jpeg',
+            title: 'Lost in the Vortex',
+            isPublished: false,
+        }
     ]);
 
-    const [afterHours, starBoy, happierThanEver, fallAsleep, uglyIsBeautiful, cowboyTears] = albums;
+    const [afterHours, starBoy, happierThanEver, fallAsleep, uglyIsBeautiful, cowboyTears , unpublishedUziAlbum] = albums;
 
     await Track.create([
         // After Hours (The Weeknd)
@@ -305,7 +318,28 @@ const run = async () => {
             duration: '2:47',
             numberTrack: 5,
             isPublished: true,
-        }
+        },
+        {
+            albumId: unpublishedUziAlbum._id,
+            title: 'Echoes in the Night',
+            duration: '3:25',
+            numberTrack: 1,
+            isPublished: false,
+        },
+        {
+            albumId: unpublishedUziAlbum._id,
+            title: 'Gravity Falls',
+            duration: '4:05',
+            numberTrack: 2,
+            isPublished: false,
+        },
+        {
+            albumId: unpublishedUziAlbum._id,
+            title: 'Beyond the Stars',
+            duration: '2:40',
+            numberTrack: 3,
+            isPublished: false,
+        },
     ]);
 
     await db.close();
