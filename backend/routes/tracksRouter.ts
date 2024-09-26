@@ -11,7 +11,6 @@ tracksRouter.use(express.json());
 
 tracksRouter.post( '/tracks', authCheck, async (req, res )=>{
     try {
-        console.log(req.body)
         const trackCount = await Track.countDocuments({ albumId: req.body.albumId });
 
         const TrackObject = new Track({

@@ -22,7 +22,9 @@ const TrackList = () => {
         dispatch(postTrack({token: userData.token , trackId: id}))
     }
 
-
+    useEffect(() => {
+        console.log(allTracks)
+    }, [allTracks]);
     return (
         <div>
             <div style={{display:'flex', marginTop:'50px', marginLeft:'25px'}}>
@@ -47,6 +49,7 @@ const TrackList = () => {
                             <th>#</th>
                             <th>Название трека</th>
                             <th>Длительность</th>
+                            <th>Статус</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,8 +63,12 @@ const TrackList = () => {
                                 <td>{track.numberTrack}</td>
                                 <td>{track.title}</td>
                                 <td>{track.duration}</td>
+
+                                <td>
+                                    {track.isPublished ? "Опубликован" : "Не опубликован"}
+                                </td>
                             </tr>
-                        ): (
+                        ) : (
                             <div>
                                 <p>There are no tracks</p>
                             </div>
