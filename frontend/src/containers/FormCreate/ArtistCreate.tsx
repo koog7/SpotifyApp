@@ -48,7 +48,7 @@ const ArtistCreate = () => {
 
     const onSubmitData = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        await dispatch(postAlbum({title: data.title, dataRelease: data.dataRelease, artistId:data.artistId, photo : file , token:userData?.token}))
+        await dispatch(postAlbum({title: data.title, dataRelease: data.dataRelease, artistId:data.artistId, photo : file}))
         navigate('/')
     }
 

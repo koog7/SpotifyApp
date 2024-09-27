@@ -4,7 +4,6 @@ import Album from "../models/Albums";
 import Artist from "../models/Artists";
 import authCheck from "../middleware/authCheck";
 import permit from "../middleware/permit";
-import albumsRouter from "./albumsRoutes";
 
 const tracksRouter = express.Router();
 tracksRouter.use(express.json());

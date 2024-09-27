@@ -5,7 +5,6 @@ import Artist from "../models/Artists";
 import Track from "../models/Tracks";
 import authCheck from "../middleware/authCheck";
 import permit from "../middleware/permit";
-import artistsRouter from "./artistsRoutes";
 
 
 const albumsRouter = express.Router();

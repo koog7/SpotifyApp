@@ -30,7 +30,6 @@ const initialState: TracksState = {
 
 export const postTrack = createAsyncThunk<User , FetchData , { state: RootState }>('track/TrackHistory', async (trackData: { token: string; trackId: string }) => {
     try{
-        // noinspection JSAnnotator
         const response = await axiosAPI.post(`/track_history` , trackData , { headers: { 'Authorization': `Bearer ${trackData.token}` } });
         return response.data;
     }catch (error) {
@@ -40,7 +39,6 @@ export const postTrack = createAsyncThunk<User , FetchData , { state: RootState 
 
 export const getTrack = createAsyncThunk<tracksInfo[] , string , { state: RootState }>('track/getTrackHistory', async (token) => {
     try{
-        // noinspection JSAnnotator
         const response = await axiosAPI.get(`/track_history` , { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     }catch (error) {

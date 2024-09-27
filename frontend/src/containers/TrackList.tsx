@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
 import {getTracks} from "./Thunk/FetchSlice.ts";
 import {postTrack} from "./Thunk/TrackHistorySlice.ts";
-import {deleteAlbum, deleteTracks, patchAlbum, patchTrack} from "./Thunk/PostSlice/DataSlice.ts";
+import {deleteTracks, patchTrack} from "./Thunk/PostSlice/DataSlice.ts";
 
 const TrackList = () => {
 
@@ -20,7 +20,7 @@ const TrackList = () => {
     }, [id]);
 
     const getIdTrack = async (id) => {
-        dispatch(postTrack({token: userData.token , trackId: id}))
+        await dispatch(postTrack({token: userData.token , trackId: id}))
         await location.reload()
     }
 
@@ -61,7 +61,7 @@ const TrackList = () => {
                             <th>Длительность</th>
                             <th>Статус</th>
 
-                            {userData.role === 'admin' && allTracks.length > 0 && (
+                            {userData && userData.role === 'admin' && allTracks.length > 0 && (
                                 <th>
                                     Функционал
                                 </th>
@@ -83,7 +83,7 @@ const TrackList = () => {
                                 <td>
                                     {track.isPublished ? "Опубликован" : "Не опубликован"}
                                 </td>
-                                {userData.role === 'admin' && allTracks.length > 0 && (
+                                {userData && userData.role === 'admin' && allTracks.length > 0 && (
                                     <td style={{display:'flex', minHeight:'50px'}}>
                                         <button style={{backgroundColor:'#d11a2a', border:"none" , height:'25px'}} onClick={() => clickDelete(track._id)}>Удалить</button>
                                         {!track.isPublished && <button style={{marginLeft: '5px', backgroundColor:'#24a0ed', border:"none", height:'25px'}} onClick={() => clickPublish(track._id)}>Опубликовать</button>}

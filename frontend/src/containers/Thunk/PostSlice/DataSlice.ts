@@ -12,20 +12,19 @@ const initialState: DataState = {
     error: null,
 };
 
-export const postArtist = createAsyncThunk<void , {name: string, info:string, photo : File , token:string} , { state: RootState }>('form/postArtist', async ({ name, info, photo, token }) => {
+export const postArtist = createAsyncThunk<void , {name: string, info:string, photo : File } , { state: RootState }>('form/postArtist', async ({ name, info, photo }) => {
     try{
         const formData = new FormData();
         formData.append('name', name);
         formData.append('info', info);
         formData.append('photo', photo);
-        console.log(formData)
-        // noinspection JSAnnotator
-        await axiosAPI.post(`/artists` , formData , { headers: { 'Authorization': `Bearer ${token}` } });
+
+        await axiosAPI.post(`/artists` , formData);
     }catch (error) {
         console.error('Error:', error);
     }
 });
-export const postAlbum = createAsyncThunk<void , {title: string, artistId:string,dataRelease: string, photo : File , token:string} , { state: RootState }>('form/postAlbum', async ({ title, artistId , dataRelease, photo, token  }) => {
+export const postAlbum = createAsyncThunk<void , {title: string, artistId:string,dataRelease: string, photo : File} , { state: RootState }>('form/postAlbum', async ({ title, artistId , dataRelease, photo}) => {
     try{
         const formData = new FormData();
         formData.append('title', title);
@@ -33,17 +32,15 @@ export const postAlbum = createAsyncThunk<void , {title: string, artistId:string
         formData.append('dataRelease', dataRelease);
         formData.append('photo', photo);
 
-        // noinspection JSAnnotator
-        await axiosAPI.post(`/albums` , formData , { headers: { 'Authorization': `Bearer ${token}` } });
+        await axiosAPI.post(`/albums` , formData );
     }catch (error) {
         console.error('Error:', error);
     }
 });
 
-export const postTrack = createAsyncThunk<void , {title: string, albumId:string,duration: string , token:string} , { state: RootState }>('form/postTrack', async ({ title, albumId , duration, token  }) => {
+export const postTrack = createAsyncThunk<void , {title: string, albumId:string,duration: string} , { state: RootState }>('form/postTrack', async ({ title, albumId , duration  }) => {
     try{
-        // noinspection JSAnnotator
-        await axiosAPI.post(`/tracks` , { title, albumId, duration } , { headers: { 'Authorization': `Bearer ${token}` } });
+        await axiosAPI.post(`/tracks` , { title, albumId, duration } );
     }catch (error) {
         console.error('Error:', error);
     }
@@ -52,7 +49,6 @@ export const postTrack = createAsyncThunk<void , {title: string, albumId:string,
 
 export const patchArtist = createAsyncThunk<void ,  string , { state: RootState }>('form/patchArtistPublished', async (id) => {
     try{
-        // noinspection JSAnnotator
         await axiosAPI.patch(`/artists/${id}/togglePublished`);
     }catch (error) {
         console.error('Error:', error);
@@ -61,7 +57,6 @@ export const patchArtist = createAsyncThunk<void ,  string , { state: RootState 
 
 export const patchAlbum = createAsyncThunk<void , string , { state: RootState }>('form/patchAlbumPublished', async (id) => {
     try{
-        // noinspection JSAnnotator
         await axiosAPI.patch(`/albums/${id}/togglePublished`);
     }catch (error) {
         console.error('Error:', error);
@@ -70,7 +65,6 @@ export const patchAlbum = createAsyncThunk<void , string , { state: RootState }>
 
 export const patchTrack = createAsyncThunk<void , string , { state: RootState }>('form/patchTrackPublished', async (id) => {
     try{
-        // noinspection JSAnnotator
         await axiosAPI.patch(`/tracks/${id}/togglePublished`);
     }catch (error) {
         console.error('Error:', error);
@@ -88,7 +82,6 @@ export const deleteArtist = createAsyncThunk<void , string , { state: RootState 
 
 export const deleteAlbum = createAsyncThunk<void , string , { state: RootState }>('form/deleteAlbum', async (id) => {
     try{
-        // noinspection JSAnnotator
         await axiosAPI.delete(`/albums/${id}`);
     }catch (error) {
         console.error('Error:', error);
@@ -97,7 +90,6 @@ export const deleteAlbum = createAsyncThunk<void , string , { state: RootState }
 
 export const deleteTracks = createAsyncThunk<void , string , { state: RootState }>('form/deleteTrack', async (id) => {
     try{
-        // noinspection JSAnnotator
         await axiosAPI.delete(`/tracks/${id}`);
     }catch (error) {
         console.error('Error:', error);

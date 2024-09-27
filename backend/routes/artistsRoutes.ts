@@ -11,9 +11,6 @@ artistsRouter.post( '/artists', authCheck , imagesUpload.single('photo'), async 
 
     try {
 
-        console.log('Received data:', req.body);
-        console.log('Received file:', req.file);
-
         const ArtistObject = new Artist({
             name: req.body.name,
             photo: req.file ? req.file.filename : null,
@@ -47,6 +44,7 @@ artistsRouter.get( '/artists', async (req, res )=>{
 
 artistsRouter.delete('/artists/:id', authCheck , permit('admin') , async (req ,res) =>{
     const {id} = req.params;
+
 
     if(!id){
         return res.status(400).send({error:'Artist cant be deleted'})

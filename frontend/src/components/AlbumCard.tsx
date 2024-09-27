@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
-import {deleteAlbum, deleteArtist, patchAlbum, patchArtist} from "../containers/Thunk/PostSlice/DataSlice.ts";
+import {deleteAlbum, patchAlbum} from "../containers/Thunk/PostSlice/DataSlice.ts";
 
 
 interface Props{

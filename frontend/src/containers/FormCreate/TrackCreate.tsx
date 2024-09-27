@@ -1,5 +1,5 @@
-import React, {ChangeEvent, FormEvent, useEffect, useRef, useState} from 'react';
-import {postArtist, postTrack} from "../Thunk/PostSlice/DataSlice.ts";
+import React, {FormEvent, useEffect, useState} from 'react';
+import {postTrack} from "../Thunk/PostSlice/DataSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
@@ -43,9 +43,7 @@ const TrackCreate = () => {
     };
     const onSubmitData = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(data)
-        await dispatch(postTrack({title: data.title, duration:data.duration, albumId:data.albumId, token:userData?.token}))
-
+        await dispatch(postTrack({title: data.title, duration:data.duration, albumId:data.albumId}))
         navigate('/')
     }
 
