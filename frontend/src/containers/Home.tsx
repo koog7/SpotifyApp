@@ -15,7 +15,7 @@ const Home = () => {
 
 
     return (
-        <div style={{marginLeft:'150px'}}>
+        <div style={{marginLeft:'240px'}}>
             <h1>Хиты этой осени!</h1>
             <div style={{display: 'grid',gridTemplateColumns: 'repeat(5, 1fr)', gap: '20px', marginTop: '50px'}}>
                 {allArtists.map((artist) => (artist ? (

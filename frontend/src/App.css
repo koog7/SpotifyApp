@@ -52,7 +52,7 @@
 
 .tracklist-container {
   margin: 20px;
-  max-width: 600px;
+  max-width: 700px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -301,4 +301,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.nav-link {
+  position: relative;
+  display: block;
+}
+
+button {
+  pointer-events: auto;
 }

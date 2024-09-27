@@ -1,4 +1,4 @@
-import axios, {AxiosHeaders, AxiosRequestConfig} from 'axios';
+import axios, {AxiosHeaders} from 'axios';
 import {RootState} from "../app/store.ts";
 import {Store} from "@reduxjs/toolkit";
 

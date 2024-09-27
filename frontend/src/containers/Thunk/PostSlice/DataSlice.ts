@@ -48,6 +48,34 @@ export const postTrack = createAsyncThunk<void , {title: string, albumId:string,
         console.error('Error:', error);
     }
 });
+
+
+export const patchArtist = createAsyncThunk<void ,  string , { state: RootState }>('form/patchArtistPublished', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.patch(`/artists/${id}/togglePublished`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const patchAlbum = createAsyncThunk<void , string , { state: RootState }>('form/patchAlbumPublished', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.patch(`/albums/${id}/togglePublished`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const patchTrack = createAsyncThunk<void , string , { state: RootState }>('form/patchTrackPublished', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.patch(`/tracks/${id}/togglePublished`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
 export const FormPost = createSlice({
     name: 'PostData',
     initialState,
@@ -90,6 +118,42 @@ export const FormPost = createSlice({
             state.error = null;
         });
         builder.addCase(postTrack.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(patchArtist.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(patchArtist.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(patchArtist.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(patchAlbum.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(patchAlbum.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(patchAlbum.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(patchTrack.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(patchTrack.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(patchTrack.rejected, (state: DataState, action) => {
             state.loader = false;
             state.error = action.payload as string;
         });

@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../app/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../app/store.ts";
+import {patchArtist, patchTrack} from "../containers/Thunk/PostSlice/DataSlice.ts";
 
 interface Props {
     _id: string;
@@ -12,6 +13,7 @@ interface Props {
 const ArtistCard: React.FC<Props> = ({ _id, name, photo, isPublished }) => {
 
     const userData = useSelector((state: RootState) => state.User.user);
+    const dispatch = useDispatch<AppDispatch>()
 
     if (!userData && !isPublished) {
         return null;
@@ -21,18 +23,31 @@ const ArtistCard: React.FC<Props> = ({ _id, name, photo, isPublished }) => {
         return null;
     }
 
+    const clickDelete = (id: string) => {
+        console.log('delete' , id)
+    }
+    const clickPublish = async (id: string) => {
+        await dispatch(patchTrack(id))
+        //await location.reload()
+    }
     return (
-        <div>
+        <div className="artist-card">
             <NavLink className="nav-link" to={`/album/${_id}`} style={{textDecoration: 'none'}}>
-                <div className="artist-card">
-                    <img className="artist-image" width="160px" src={`http://localhost:8000/images/${photo}`}
-                         alt={`${name} image`}/>
-                    <p className="artist-name">{name}</p>
-                    <p className="artist-description">Исполнитель</p>
-                    {isPublished ? <></> : <div style={{fontSize:'12px', marginBottom: 0}}>Не опубликован</div>}
-                </div>
+                <img className="artist-image" width="160px" src={`http://localhost:8000/images/${photo}`}
+                     alt={`${name} image`}/>
+                <p className="artist-name">{name}</p>
+                <p className="artist-description">Исполнитель</p>
+                {!isPublished && <div style={{fontSize: '12px', marginBottom: 0}}>Не опубликован</div>}
             </NavLink>
+
+            {userData && userData.role === 'admin' && (
+                <div>
+                    <button onClick={() => clickDelete(_id)} style={{backgroundColor:'#d11a2a', border:"none"}}>Удалить</button>
+                    {!isPublished && <button style={{marginLeft: '5px', backgroundColor:'#24a0ed', border:"none"}} onClick={() => clickPublish(_id)}>Опубликовать</button>}
+                </div>
+            )}
         </div>
+
     );
 };
 

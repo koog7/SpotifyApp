@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
 import {getTracks} from "./Thunk/FetchSlice.ts";
 import {postTrack} from "./Thunk/TrackHistorySlice.ts";
+import {patchAlbum, patchTrack} from "./Thunk/PostSlice/DataSlice.ts";
 
 const TrackList = () => {
 
@@ -21,6 +22,12 @@ const TrackList = () => {
     const getIdTrack = async (id) => {
         dispatch(postTrack({token: userData.token , trackId: id}))
     }
+
+    const clickPublish = async (id: string) => {
+        await dispatch(patchTrack(id))
+        await location.reload()
+    }
+
 
     return (
         <div>
@@ -47,6 +54,12 @@ const TrackList = () => {
                             <th>Название трека</th>
                             <th>Длительность</th>
                             <th>Статус</th>
+
+                            {userData.role === 'admin' && allTracks.length > 0 && (
+                                <th>
+                                    Функционал
+                                </th>
+                            )}
                         </tr>
                         </thead>
                         <tbody>
@@ -64,6 +77,12 @@ const TrackList = () => {
                                 <td>
                                     {track.isPublished ? "Опубликован" : "Не опубликован"}
                                 </td>
+                                {userData.role === 'admin' && allTracks.length > 0 && (
+                                    <td style={{display:'flex', minHeight:'50px'}}>
+                                        <button style={{backgroundColor:'#d11a2a', border:"none" , height:'25px'}}>Удалить</button>
+                                        {!track.isPublished && <button style={{marginLeft: '5px', backgroundColor:'#24a0ed', border:"none", height:'25px'}} onClick={() => clickPublish(track._id)}>Опубликовать</button>}
+                                    </td>
+                                )}
                             </tr>
                         ) : (
                             <div>
