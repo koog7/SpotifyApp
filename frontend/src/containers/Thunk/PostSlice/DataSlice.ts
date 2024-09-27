@@ -76,6 +76,33 @@ export const patchTrack = createAsyncThunk<void , string , { state: RootState }>
         console.error('Error:', error);
     }
 });
+
+export const deleteArtist = createAsyncThunk<void , string , { state: RootState }>('form/deleteArtist', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.delete(`/artists/${id}`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const deleteAlbum = createAsyncThunk<void , string , { state: RootState }>('form/deleteAlbum', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.delete(`/albums/${id}`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+export const deleteTracks = createAsyncThunk<void , string , { state: RootState }>('form/deleteTrack', async (id) => {
+    try{
+        // noinspection JSAnnotator
+        await axiosAPI.delete(`/tracks/${id}`);
+    }catch (error) {
+        console.error('Error:', error);
+    }
+});
 export const FormPost = createSlice({
     name: 'PostData',
     initialState,
@@ -154,6 +181,42 @@ export const FormPost = createSlice({
             state.error = null;
         });
         builder.addCase(patchTrack.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(deleteArtist.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(deleteArtist.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(deleteArtist.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(deleteAlbum.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(deleteAlbum.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(deleteAlbum.rejected, (state: DataState, action) => {
+            state.loader = false;
+            state.error = action.payload as string;
+        });
+        builder.addCase(deleteTracks.pending, (state: DataState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(deleteTracks.fulfilled, (state: DataState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(deleteTracks.rejected, (state: DataState, action) => {
             state.loader = false;
             state.error = action.payload as string;
         });

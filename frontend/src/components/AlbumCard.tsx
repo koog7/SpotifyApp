@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
-import {patchAlbum, patchArtist} from "../containers/Thunk/PostSlice/DataSlice.ts";
+import {deleteAlbum, deleteArtist, patchAlbum, patchArtist} from "../containers/Thunk/PostSlice/DataSlice.ts";
 
 
 interface Props{
@@ -27,6 +27,10 @@ const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo , trackCoun
         return null;
     }
 
+    const clickDelete = async (id: string) => {
+        await dispatch(deleteAlbum(id))
+        await location.reload()
+    }
     const clickPublish = async (id: string) => {
         await dispatch(patchAlbum(id))
         await location.reload()
@@ -49,7 +53,7 @@ const AlbumCard: React.FC<Props> = ({_id, title , dataRelease, photo , trackCoun
 
             {userData && userData.role === 'admin' && (
                 <div>
-                    <button style={{backgroundColor:'#d11a2a', border:"none"}}>Удалить</button>
+                    <button style={{backgroundColor:'#d11a2a', border:"none"}} onClick={() => clickDelete(_id)}>Удалить</button>
                     {!isPublished && <button style={{marginLeft: '5px', backgroundColor:'#24a0ed', border:"none"}} onClick={() => clickPublish(_id)}>Опубликовать</button>}
                 </div>
             )}

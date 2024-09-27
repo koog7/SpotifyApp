@@ -1,7 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../app/store.ts";
-import {patchArtist, patchTrack} from "../containers/Thunk/PostSlice/DataSlice.ts";
+import {deleteArtist, patchArtist} from "../containers/Thunk/PostSlice/DataSlice.ts";
 
 interface Props {
     _id: string;
@@ -23,12 +23,13 @@ const ArtistCard: React.FC<Props> = ({ _id, name, photo, isPublished }) => {
         return null;
     }
 
-    const clickDelete = (id: string) => {
-        console.log('delete' , id)
+    const clickDelete = async (id: string) => {
+        await dispatch(deleteArtist(id))
+        await location.reload()
     }
     const clickPublish = async (id: string) => {
-        await dispatch(patchTrack(id))
-        //await location.reload()
+        await dispatch(patchArtist(id))
+        await location.reload()
     }
     return (
         <div className="artist-card">
