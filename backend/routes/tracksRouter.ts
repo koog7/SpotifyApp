@@ -33,7 +33,7 @@ tracksRouter.get( '/tracks', async (req, res )=>{
 
     if(album){
         try {
-            const tracks = await Track.find({albumId: album});
+            const tracks = await Track.find({albumId: album}).sort({ numberTrack: 1 });
             const getInfoAlbum = await Album.findById(album)
 
             if (!getInfoAlbum) {
