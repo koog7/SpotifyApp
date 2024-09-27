@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axiosAPI from "../../axios/AxiosAPI.ts";
+import {RootState} from "../../app/store.ts";
 
 export interface User{
     _id: string,
@@ -41,7 +42,11 @@ export const authorizationUser = createAsyncThunk<User , LoginData , { rejectVal
     }
 });
 
-
+export const logout = createAsyncThunk<void, string, {state: RootState}>('users/logout',
+    async () => {
+        await axiosAPI.delete('/users/sessions');
+    }
+);
 export const UserSlice = createSlice({
     name:'User',
     initialState,
@@ -76,7 +81,18 @@ export const UserSlice = createSlice({
         builder.addCase(authorizationUser.rejected, (state: UserState , action) => {
             state.loader = false;
             state.error = action.payload as string;
-
+        });
+        builder.addCase(logout.pending, (state: UserState) => {
+            state.loader = true;
+            state.error = null;
+        });
+        builder.addCase(logout.fulfilled, (state: UserState) => {
+            state.loader = false;
+            state.error = null;
+        });
+        builder.addCase(logout.rejected, (state: UserState , action) => {
+            state.loader = false;
+            state.error = action.payload as string;
         });
     },
 })
