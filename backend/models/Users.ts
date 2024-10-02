@@ -35,7 +35,6 @@ const UsersSchema = new Schema({
     avatar:{
         type:String,
     }
-
 })
 
 

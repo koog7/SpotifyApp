@@ -3,9 +3,12 @@ import User from "../models/Users";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import {randomUUID} from "crypto";
+import {OAuth2Client} from "google-auth-library";
+import config from "../config";
 
 const authUserRouter = express.Router();
 authUserRouter.use(express.json());
+const googleClient = new OAuth2Client(config.google.cliendId)
 
 authUserRouter.post( '/', async (req, res, next )=>{
     try {
@@ -55,8 +58,47 @@ authUserRouter.post('/sessions' , async (req, res, next) => {
     }
 })
 
-authUserRouter.post('/google' , (req , res) => {
+authUserRouter.post('/google' , async(req , res , next) => {
+    try{
+        const ticket = await googleClient.verifyIdToken({
+            idToken: req.body.credential,
+            audience: config.google.clientId,
+        });
 
+        const payload = ticket.getPayload();
+
+        if (!payload) {
+            return res.status(400).send({ error: "Google login error!" });
+        }
+
+        const email = payload.email;
+        const id = payload.sub;
+        const displayName = payload.name;
+        const avatar = payload.picture;
+
+        if (!email) {
+            return res.status(400).send({ error: "Not enough user data to continue" });
+        }
+
+        let user = await User.findOne({googleId: id})
+
+        if (!user) {
+             const newUser = new User({
+                username: email,
+                password: crypto.randomUUID(),
+                googleID: id,
+                displayName: displayName,
+                avatar: avatar,
+                token: randomUUID(),
+            });
+            await newUser.save();
+        }
+
+        return res.send({ message: "Login with Google successful!", user });
+
+    }catch (e) {
+        return next(e)
+    }
 })
 
 authUserRouter.delete('/sessions', async (req, res, next) => {
