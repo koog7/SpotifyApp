@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
 import {authorizationUser} from "../Thunk/AuthSlice.ts";
+import {GoogleLogin} from "@react-oauth/google";
 
 const SignIn = () => {
 
@@ -51,6 +52,11 @@ const SignIn = () => {
                     )}
                 </div>
                 <button type="submit" className="signin-button">Sign In</button>
+                <div style={{marginTop:'10px', marginLeft:'70px'}}>
+                    <GoogleLogin theme={"filled_black"}  onSuccess={(credentialResponse) =>{
+                        console.log(credentialResponse)
+                    }}/>
+                </div>
             </form>
         </div>
     );

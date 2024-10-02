@@ -55,6 +55,10 @@ authUserRouter.post('/sessions' , async (req, res, next) => {
     }
 })
 
+authUserRouter.post('/google' , (req , res) => {
+
+})
+
 authUserRouter.delete('/sessions', async (req, res, next) => {
     try {
         const getToken = req.get('Authorization');
