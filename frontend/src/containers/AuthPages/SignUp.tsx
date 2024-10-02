@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {loginUser} from "../Thunk/AuthSlice.ts";
+import {googleLogin, loginUser} from "../Thunk/AuthSlice.ts";
+import {GoogleLogin} from "@react-oauth/google";
 
 
 const SignUp = () => {
@@ -35,6 +36,11 @@ const SignUp = () => {
 
     };
 
+    const googleLoginHandler = async (credential: string) => {
+        await dispatch(googleLogin(credential)).unwrap();
+        navigate('/');
+    };
+
     return (
         <div className="signin-container">
             <form className="signin-form" onSubmit={submitData}>
@@ -50,9 +56,16 @@ const SignUp = () => {
                            onChange={getValueInput} required/>
                 </div>
                 {error && (
-                    <p style={{ color: 'red' }}>{error}</p>
+                    <p style={{color: 'red'}}>{error}</p>
                 )}
                 <button type="submit" className="signin-button">Sign In</button>
+                <div style={{marginTop: '10px', marginLeft: '70px'}}>
+                    <GoogleLogin theme={"filled_black"} onSuccess={(credentialResponse) => {
+                        if (credentialResponse.credential) {
+                            void googleLoginHandler(credentialResponse.credential);
+                        }
+                    }}/>
+                </div>
             </form>
         </div>
     );
