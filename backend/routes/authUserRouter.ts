@@ -8,7 +8,7 @@ import config from "../config";
 
 const authUserRouter = express.Router();
 authUserRouter.use(express.json());
-const googleClient = new OAuth2Client(config.google.cliendId)
+const googleClient = new OAuth2Client(config.google.clientId)
 
 authUserRouter.post( '/', async (req, res, next )=>{
     try {
@@ -80,7 +80,7 @@ authUserRouter.post('/google' , async(req , res , next) => {
             return res.status(400).send({ error: "Not enough user data to continue" });
         }
 
-        let user = await User.findOne({googleId: id})
+        let user = await User.findOne({googleID: id}).exec()
 
         if (!user) {
              const newUser = new User({
@@ -92,10 +92,10 @@ authUserRouter.post('/google' , async(req , res , next) => {
                 token: randomUUID(),
             });
             await newUser.save();
+            user = newUser;
         }
 
         return res.send({ message: "Login with Google successful!", user });
-
     }catch (e) {
         return next(e)
     }

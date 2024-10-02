@@ -1,10 +1,14 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axiosAPI from "../../axios/AxiosAPI.ts";
 import {RootState} from "../../app/store.ts";
+import axiosApi from "../../axios/AxiosAPI.ts";
+import {isAxiosError} from "axios";
 
 export interface User{
     _id: string,
     username: string,
+    photo?:File,
+    displayName?:string,
     token: string,
 }
 interface LoginData {
@@ -41,6 +45,20 @@ export const authorizationUser = createAsyncThunk<User , LoginData , { rejectVal
         return rejectWithValue(error.response?.data?.message || 'Username or password wrong');
     }
 });
+
+export const googleLogin = createAsyncThunk<User, string, {rejectValue}>('users/googleLogin', async (credential, { rejectWithValue }) => {
+    try {
+        const response = await axiosApi.post('/users/google', { credential });
+        console.log(response.data.user)
+        return response.data.user;
+    } catch (e) {
+        if (isAxiosError(e) && e.response && e.response.status === 400) {
+            return rejectWithValue(e.response.data);
+        }
+        throw e;
+    }
+    },
+);
 
 export const logout = createAsyncThunk<void, string, {state: RootState}>('users/logout',
     async () => {
@@ -93,6 +111,18 @@ export const UserSlice = createSlice({
         builder.addCase(logout.rejected, (state: UserState , action) => {
             state.loader = false;
             state.error = action.payload as string;
+        });
+        builder.addCase(googleLogin.pending, (state: UserState) => {
+            state.loader = true;
+        });
+        builder.addCase(googleLogin.fulfilled, (state: UserState, { payload: user }) => {
+            state.loader = false;
+            state.user = user;
+        });
+        builder.addCase(googleLogin.rejected, (state: UserState, { payload: error }) => {
+            state.loader = false;
+            state.error = error || null;
+
         });
     },
 })

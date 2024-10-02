@@ -29,20 +29,32 @@ const SideBar = () => {
                     </h2>
                     <div className="user-section">
                         {userData && userData.username ? (
-                            <div style={{minHeight:'500px'}}>
-                                <p className="welcome-message">Здравствуйте, {userData.username}!</p>
-                                {userData.role && (<p style={{backgroundColor: userData.role === 'admin' ? '#ff4d4d' : userData.role === 'user' ? '#4caf50' : '#4dff4d', padding: '5px',borderRadius: '5px',}}>Роль - <span style={{fontSize:'20px'}}>{userData.role}</span></p>)}
-                                <div style={{marginTop: '50px', display:'flex', flexDirection:'column'}}>
+                            <div style={{minHeight: '500px'}}>
+                                <div style={{display:'flex'}}>
+                                    <p className="welcome-message">Здравствуйте, {userData.displayName}! </p>
+                                    <img src={userData.avatar} alt="Аватар"
+                                         style={{width: '50px', height:'50px', borderRadius: '50%', marginTop:'20px'}}/>
+                                </div>
+
+
+                                {userData.role && (<p style={{
+                                    backgroundColor: userData.role === 'admin' ? '#ff4d4d' : userData.role === 'user' ? '#4caf50' : '#4dff4d',
+                                    padding: '5px',
+                                    borderRadius: '5px',
+                                }}>Роль - <span style={{fontSize: '20px'}}>{userData.role}</span></p>)}
+                                <div style={{marginTop: '50px', display: 'flex', flexDirection: 'column'}}>
                                     <NavLink className={'trackH-btn'} to={'/createArtist'}>Создать артиста</NavLink>
                                     <NavLink className={'trackH-btn'} to={'/createAlbum'}>Создать альбом</NavLink>
                                     <NavLink className={'trackH-btn'} to={'/createTrack'}>Создать трек</NavLink>
-                                    <NavLink className={'trackH-btn'} to={'/track_history'}>История прослушивания</NavLink>
-                                    <a style={{marginTop:'250px'}} onClick={logOut} className={'logout'}>Выйти из аккаунта</a>
+                                    <NavLink className={'trackH-btn'} to={'/track_history'}>История
+                                        прослушивания</NavLink>
+                                    <a style={{marginTop: '200px'}} onClick={logOut} className={'logout'}>Выйти из
+                                        аккаунта</a>
                                 </div>
                             </div>
                         ) : (
                             <div className="auth-links">
-                                <NavLink to="/login">Log In</NavLink>
+                            <NavLink to="/login">Log In</NavLink>
                                 <NavLink to="/registration">Sign Up</NavLink>
                             </div>
                         )}
@@ -50,7 +62,6 @@ const SideBar = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
