@@ -40,7 +40,6 @@ const SignUp = () => {
         e.preventDefault();
 
         try {
-            // noinspection TypeScriptValidateTypes
             const resDispatch = await dispatch(loginUser({
                 username: login.username,
                 password: login.password,

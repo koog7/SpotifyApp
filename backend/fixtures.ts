@@ -22,12 +22,16 @@ const run = async () => {
         {
             username:'User1',
             password:'password1',
+            displayName:'User',
+            avatar:'user.webp',
             token:randomUUID(),
             role: 'user'
         },
         {
             username:'Admin1',
             password:'password2',
+            displayName:'Admin',
+            avatar:'admin.png',
             token:randomUUID(),
             role: 'admin'
         }
