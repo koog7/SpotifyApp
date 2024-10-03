@@ -14,6 +14,8 @@ export interface User{
 interface LoginData {
     username: string;
     password: string;
+    displayName: string;
+    photo: File;
 }
 
 interface UserState {
@@ -27,9 +29,15 @@ const initialState: UserState = {
     loader: false,
     error: null,
 };
-export const loginUser = createAsyncThunk<User , LoginData , { rejectValue: string }>('users/singIn', async (loginData: { username: string; password: string } , { rejectWithValue }) => {
+export const loginUser = createAsyncThunk<User , LoginData , { rejectValue: string }>('users/singIn', async (loginData: { username: string; password: string ,displayName: string, photo: File } , { rejectWithValue }) => {
     try{
-        const response = await axiosAPI.post(`/users` , loginData);
+        const newFormData = new FormData()
+        newFormData.append('username',loginData.username)
+        newFormData.append('password',loginData.password)
+        newFormData.append('displayName',loginData.displayName)
+        newFormData.append('avatar',loginData.photo)
+
+        const response = await axiosAPI.post(`/users` , newFormData);
         return response.data;
     }catch (error) {
         return rejectWithValue(error.response?.data?.message);

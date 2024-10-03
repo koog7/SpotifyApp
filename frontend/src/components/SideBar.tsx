@@ -32,11 +32,9 @@ const SideBar = () => {
                             <div style={{minHeight: '500px'}}>
                                 <div style={{display:'flex'}}>
                                     <p className="welcome-message">Здравствуйте, {userData.displayName}! </p>
-                                    <img src={userData.avatar} alt="Аватар"
+                                    <img src={userData.avatar.startsWith('http') ? userData.avatar : `http://localhost:8000/images/${userData.avatar}`}  alt="Аватар"
                                          style={{width: '50px', height:'50px', borderRadius: '50%', marginTop:'20px'}}/>
                                 </div>
-
-
                                 {userData.role && (<p style={{
                                     backgroundColor: userData.role === 'admin' ? '#ff4d4d' : userData.role === 'user' ? '#4caf50' : '#4dff4d',
                                     padding: '5px',

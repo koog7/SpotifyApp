@@ -139,14 +139,14 @@
   display: flex;
   min-height: 400px;
   margin-left: 50px;
-  margin-top: 140px;
+  margin-top: 100px;
   width: 419px;
   padding-bottom: 20px;
 }
 
 .signin-form {
   background-color: #fff;
-  padding: 0 10px 0 10px;
+  padding: 0 10px 20px 10px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
